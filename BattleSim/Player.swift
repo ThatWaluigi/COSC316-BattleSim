@@ -10,6 +10,4 @@ struct Player {
     var health: Int;
     
     var weapon: Weapons;
-    
-    var money: Int;
 }

@@ -1,5 +1,5 @@
 //
-//  CreationView.swift
+//  HomeView.swift
 //  BattleSim
 //
 //  Created by Quintin Dennison on 2026-04-08.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CreationView: View {
+struct HomeView: View {
     var body: some View {
-        Text("Customizing. . .")
+        Text("Welcome Home")
     }
 }

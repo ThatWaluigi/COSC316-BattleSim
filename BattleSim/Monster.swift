@@ -17,6 +17,6 @@ struct BattleMonster {
         self.health = prefab.baseHealth
         self.attack = prefab.baseAttack
         
-        self.weapon = prefab.weapon ? prefab.Weapon.self :
+        self.weapon = prefab.Weapon!
     }
 }
