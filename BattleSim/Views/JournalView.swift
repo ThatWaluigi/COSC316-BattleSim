@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct JournalView: View {
+    var Return: () -> Void
+
     var body: some View {
-        
+        Button("Back") {
+            Return()
+        }
     }
 }
 

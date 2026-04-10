@@ -9,34 +9,20 @@ import SwiftData
 
 @Model
 class Monsters {
-    var baseName: String;
-    var baseHealth: Int;
-    var baseAttack: Int;
-    
-    var Weapon: Weapons?; //If no weapon is set -> random one from db is grabbed
-    var weaponWieldRarity: [WeaponRarity]; //[min rarity, max rarity] ^
-    
-    init(baseName: String, baseHealth: Int, baseAttack: Int, Weapon: Weapons, weaponWieldRarity: [WeaponRarity]){
-        self.baseName = baseName
-        self.baseHealth = baseHealth
-        self.baseAttack = baseAttack
-        self.Weapon = Weapon
-        self.weaponWieldRarity = weaponWieldRarity
-    }
+    var baseName: String
+    var baseHealth: Int
+    var baseAttack: Int
+
+    var weapon: Weapon?
+    var minRarity: WeaponRarity
+    var maxRarity: WeaponRarity
 }
 
 @Model
 class Weapons {
-    var baseName: String;
-    var baseAttack: Int;
-    
-    var rarity: WeaponRarity;
-    
-    init(baseName: String, baseAttack: Int, rarity: WeaponRarity) {
-        self.baseName = baseName
-        self.baseAttack = baseAttack
-        self.rarity = rarity
-    }
+    var baseName: String
+    var baseAttack: Int
+    var rarity: WeaponRarity
 }
 
 enum WeaponRarity: Int, Codable{

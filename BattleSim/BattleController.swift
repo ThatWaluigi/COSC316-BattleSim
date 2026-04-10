@@ -5,9 +5,25 @@
 //  Created by Quintin Dennison on 2026-04-09.
 //
 
-import SwiftUI
-
 struct BattleController {
-    @Binding var player: PlayerObj
-    @Binding var enemy: BattleMonster
+    static func performTurn(player: inout PlayerObj, enemy: inout BattleMonster) -> BattleResult {
+
+        // Player attacks
+        enemy.health -= player.weapons.first?.baseAttack ?? 5 // Change to player selection later
+
+        // Enemy dies
+        if enemy.health <= 0 {
+            return BattleResult(playerDied: false, enemyDied: true)
+        }
+
+        // Enemy attacks
+        let died = player.takeDamage(enemy.attack)
+
+        return BattleResult(playerDied: died, enemyDied: false)
+    }
+}
+
+struct BattleResult {
+    var playerDied: Bool
+    var enemyDied: Bool
 }

@@ -10,8 +10,17 @@ import SwiftUI
 struct HomeView: View {
     @Binding var Player: PlayerObj
     
-    var body: some View {
+    var Battle: () -> Void
+    var Journal: () -> Void
 
+    var body: some View {
+        Button("Start Battle") {
+            Battle()
+        }
+
+        Button("Journal") {
+            Journal()
+        }
     }
 }
 

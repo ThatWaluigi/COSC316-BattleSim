@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BattleView: View {
     @Binding var Player: PlayerObj
+
+    var Return: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
