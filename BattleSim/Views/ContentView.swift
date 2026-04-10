@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var screen: Screen = .home
+    @State var screen: Screen = .village
 
-    @State var player = PlayerObj(money: 0, maxHealth: 20, maxWeapons: 1, weapons: [])
+    @State var player = PlayerObj(money: 0, health: 15, maxHealth: 20, maxWeapons: 1, weapons: [])
     
     var body: some View {
         switch screen {
-            case .village: HomeView(player: $player, Battle: { screen = .battle}, Journal: { screen = .journal})
-            case .battle: BattleView(player: $player, Return: { screen = .home })
-            case .journal: JournalView(Return: { screen = .home })
+            case .village: HomeView(Player: $player, Battle: { screen = .battle}, Journal: { screen = .journal})
+            case .battle: BattleView(Player: $player, Return: { screen = .village })
+            case .journal: JournalView(Return: { screen = .village })
         }
     }
 

@@ -17,7 +17,7 @@ struct BattleController {
         }
 
         // Enemy attacks
-        let died = player.takeDamage(enemy.attack)
+        let died = player.TakeDamage(amount: enemy.attack)
 
         return BattleResult(playerDied: died, enemyDied: false)
     }

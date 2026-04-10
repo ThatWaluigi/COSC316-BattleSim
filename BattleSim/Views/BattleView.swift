@@ -60,7 +60,6 @@ struct BattleView: View {
                     // Visualize HP bar here
                     HStack {
                         Text("Health: ").padding(2).bold()
-                        Player.visualizeHP()
                         Spacer()
                     }
                     .frame(maxWidth: 280)
@@ -120,9 +119,9 @@ struct BattleView: View {
 
 #Preview {
     struct BattleViewPreviewWrapper: View {
-        @State private var player = PlayerObj(money: 1000, maxHealth: 100, maxWeapons: 1, weapons: [])
+        @State private var player = PlayerObj(money: 1000, health: 100, maxHealth: 100, maxWeapons: 1, weapons: [])
         var body: some View {
-            BattleView(Player: $player)
+            BattleView(Player: $player, Return: {})
         }
     }
     return BattleViewPreviewWrapper()

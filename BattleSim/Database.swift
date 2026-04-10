@@ -13,11 +13,11 @@ class Monsters {
     var baseHealth: Int
     var baseAttack: Int
 
-    var weapon: Weapon?
+    var weapon: Weapons?
     var minRarity: WeaponRarity
     var maxRarity: WeaponRarity
 
-    init(baseName: String,baseHealth: Int,baseAttack: Int,weapon: Weapon? = nil,minRarity: WeaponRarity,maxRarity: WeaponRarity) {
+    init(baseName: String,baseHealth: Int,baseAttack: Int,weapon: Weapons? = nil,minRarity: WeaponRarity,maxRarity: WeaponRarity) {
         self.baseName = baseName
         self.baseHealth = baseHealth
         self.baseAttack = baseAttack

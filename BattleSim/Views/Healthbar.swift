@@ -5,6 +5,8 @@
 //  Created by Quintin Dennison on 2026-04-09.
 //
 
+import SwiftUI
+
 struct Healthbar: View {
     var health: Int
     var maxHealth: Int
@@ -14,7 +16,7 @@ struct Healthbar: View {
 
         return Rectangle()
             .foregroundColor(.red)
-            .frame(width: ratio * 200, height: 15)
+            .frame(width: hpRatio * 200, height: 15)
             .overlay(
                 Text("\(health)")
                     .font(.system(size: 9))

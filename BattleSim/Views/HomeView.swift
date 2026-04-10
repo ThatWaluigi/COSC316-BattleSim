@@ -26,9 +26,9 @@ struct HomeView: View {
 
 #Preview {
     struct HomeViewPreviewWrapper: View {
-        @State private var player = PlayerObj(money: 500, maxHealth: 50, maxWeapons: 1, weapons: [])
+        @State private var player = PlayerObj(money: 500, health: 45, maxHealth: 50, maxWeapons: 1, weapons: [])
         var body: some View {
-            HomeView(Player: $player)
+            HomeView(Player: $player, Battle: {}, Journal: {})
         }
     }
     return HomeViewPreviewWrapper()
