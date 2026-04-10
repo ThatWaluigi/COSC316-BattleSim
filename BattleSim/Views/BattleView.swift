@@ -57,18 +57,7 @@ struct BattleView: View {
             HStack{
                 VStack{
                     
-                    // Visualize HP bar here
-                    HStack {
-                        Text("Health: ").padding(2).bold()
-                        Spacer()
-                    }
-                    .frame(maxWidth: 280)
-                    .padding(4)
-                    .background(Image("DividerUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        )
-                    )
+                    Healthbar(health: player.health, maxHealth: player.maxHealth)
                     
                     HStack{
                         Button("Attack") {
