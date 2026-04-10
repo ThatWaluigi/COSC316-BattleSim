@@ -9,20 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var inFight: Bool = false;
-    var customizing: Bool = false;
+    var journal: Bool = false;
+    
+    @State var player = PlayerObj(money: 0, maxHealth: 20, maxWeapons: 1, weapons: [])
     
     var body: some View {
-        if !inFight && !customizing {
-            HomeView()
+        if !inFight && !journal {
+            HomeView(Player: $player)
         }
         else
         {
             if inFight {
-                BattleView()
+                BattleView(Player: $player)
             }
             
-            if customizing {
-                CreationView()
+            if journal {
+                JournalView()
             }
         }
     }

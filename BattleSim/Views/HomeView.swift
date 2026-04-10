@@ -8,7 +8,19 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Binding var Player: PlayerObj
+    
     var body: some View {
-        Text("Welcome Home")
+
     }
+}
+
+#Preview {
+    struct HomeViewPreviewWrapper: View {
+        @State private var player = PlayerObj(money: 500, maxHealth: 50, maxWeapons: 1, weapons: [])
+        var body: some View {
+            HomeView(Player: $player)
+        }
+    }
+    return HomeViewPreviewWrapper()
 }

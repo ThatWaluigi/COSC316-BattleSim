@@ -45,3 +45,24 @@ enum WeaponRarity: Int, Codable{
     case Rare = 3
     case Epic = 4
 }
+
+@Model
+class Player {
+    var diffculty: Float;
+    
+    var health: Int;
+    var maxHealth: Int;
+    var money: Int;
+    
+    var inventory: [Weapons];
+    var maxWeapons: Int;
+    
+    init(difficulty:Float, maxHealth: Int, money: Int, inventory: [Weapons], maxWeapons: Int) {
+        self.diffculty = difficulty
+        self.health = maxHealth
+        self.maxHealth = maxHealth
+        self.money = money
+        self.inventory = inventory
+        self.maxWeapons = maxWeapons
+    }
+}
