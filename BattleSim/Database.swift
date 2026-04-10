@@ -16,6 +16,15 @@ class Monsters {
     var weapon: Weapon?
     var minRarity: WeaponRarity
     var maxRarity: WeaponRarity
+
+    init(baseName: String,baseHealth: Int,baseAttack: Int,weapon: Weapon? = nil,minRarity: WeaponRarity,maxRarity: WeaponRarity) {
+        self.baseName = baseName
+        self.baseHealth = baseHealth
+        self.baseAttack = baseAttack
+        self.weapon = weapon
+        self.minRarity = minRarity
+        self.maxRarity = maxRarity
+    }
 }
 
 @Model
@@ -23,6 +32,12 @@ class Weapons {
     var baseName: String
     var baseAttack: Int
     var rarity: WeaponRarity
+
+    init(baseName: String = "", baseAttack: Int = 1, rarity: WeaponRarity = .Common) {
+        self.baseName = baseName
+        self.baseAttack = baseAttack
+        self.rarity = rarity
+    }
 }
 
 enum WeaponRarity: Int, Codable{
