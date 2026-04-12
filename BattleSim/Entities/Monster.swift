@@ -7,6 +7,7 @@
 
 struct BattleMonster {
     var name: String
+    var maxHealth: Int
     var health: Int
     var attack: Int
 
@@ -14,7 +15,8 @@ struct BattleMonster {
 
     init(prefab: Monsters, weapon: Weapons, difficulty: Float) {
         self.name = prefab.baseName
-        self.health = prefab.baseHealth * (1 + difficulty)
+        self.maxHealth = prefab.baseHealth * (1 + difficulty)
+        self.health = self.maxHealth
         self.attack = prefab.baseAttack * (1 + difficulty * 0.5)
 
         self.weapon = weapon
