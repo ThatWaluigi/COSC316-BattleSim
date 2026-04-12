@@ -9,6 +9,9 @@ struct EnemyView: View {
                 .font(.title)
                 .bold()
                 .padding(.top, 24)
+            
+            Text("Wielding: \(enemy.weapon.name) <\(enemy.weapon.baseDamage)>")
+                .font(.subheadline)
 
             Healthbar(
                 health: enemy.curHp,
@@ -18,7 +21,7 @@ struct EnemyView: View {
             Spacer()
             
             HStack{
-                UIHelper.GetEnemyArt(enemy.imageName)
+                UIHelper.GetEnemyArt(image: "Temp")
             }.padding(20)
         }
     }
