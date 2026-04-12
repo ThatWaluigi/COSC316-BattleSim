@@ -13,7 +13,7 @@ class BattleController: ObservableObject {
             name: prefab.name,
             maxHp: prefab.maxHp,
             imageName: prefab.imageName,
-            weapon: PrefabWeapon(name: "Sword", damage: 10, rarity: .common) //temp
+            weapon: Prefabs.randomWeapon()
         )
     }
 

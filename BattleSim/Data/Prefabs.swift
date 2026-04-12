@@ -81,3 +81,20 @@ struct Prefabs {
         PrefabWeapon(name: "Eclipse Reaper", damage: 55, rarity: .legendary)
     ]
 }
+extension Prefabs {
+    static func randomWeapon() -> PrefabWeapon {
+        let pool = allWeapons
+
+        // simple weighting: more common items appear more often
+        let weighted = pool.flatMap { weapon in
+            switch weapon.rarity {
+            case .common: return Array(repeating: weapon, count: 9)
+            case .uncommon: return Array(repeating: weapon, count: 5)
+            case .rare: return Array(repeating: weapon, count: 3)
+            case .legendary: return [weapon]
+            }
+        }
+
+        return weighted.randomElement()!
+    }
+}
