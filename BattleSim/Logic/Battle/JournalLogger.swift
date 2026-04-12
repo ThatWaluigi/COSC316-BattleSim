@@ -1,3 +1,5 @@
+import SwiftData
+
 struct JournalLogger {
     func recordEncounter(prefab: PrefabEnemy, context: ModelContext, enemies: [Enemy]) {
         if let existing = enemies.first(where: { $0.name == prefab.name }) {

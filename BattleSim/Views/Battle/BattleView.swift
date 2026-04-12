@@ -54,7 +54,10 @@ struct BattleView: View {
             HStack {
                 switch controller.state {
                 case .main:
-                    ActionView(Return: Return, actionState: $ActionState)
+                    ActionView(
+                        onAttack: { controller.ChangeState(state: .attack) },
+                        onRun: Return
+                    )
                 case .attack:
                     Text("Hit")
                 case .victory:

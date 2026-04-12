@@ -1,21 +1,21 @@
-import SwiftUI
+import Combine
 
 @MainActor
 class BattleController: ObservableObject {
-
+    
     @Published var enemy: BattleEnemy?
     @Published var state: PlayerActionState = .main
 
     func startBattle(with prefab: PrefabEnemy) {
         enemy = BattleEnemy(
             name: prefab.name,
-            maxHP: prefab.maxHp,
+            maxHp: prefab.maxHp,
             imageName: prefab.imageName
         )
     }
-
-    func run() {
-        state = .main
+    
+    func ChangeState(state: PlayerActionState){
+        self.state = state
     }
 }
 

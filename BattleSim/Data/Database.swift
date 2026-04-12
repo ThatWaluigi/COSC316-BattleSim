@@ -11,6 +11,7 @@ class Enemy {
         self.name = name
         self.maxHP = maxHP
         self.timesEncountered = 0
+        self.timesKilled = 0
     }
 }
 
