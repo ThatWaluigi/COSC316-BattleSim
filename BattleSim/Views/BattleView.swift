@@ -16,7 +16,21 @@ import SwiftUI
 
 struct BattleView: View {
 
-    var goBack: () -> Void
+    var Return: () -> Void
+    
+    enum UI_BGS: String{
+        case MenuUI
+        case DividerUI
+        case ButtonUI
+    }
+    
+    func GetBackground(type: UI_BGS) -> some View{
+        return Image(type.rawValue)
+            .resizable(
+                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                resizingMode: .tile
+            )
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -25,14 +39,10 @@ struct BattleView: View {
             HStack {
                 Spacer()
             }
-            .frame(height: 35)
+            .frame(height: 50)
             .padding()
             .background(
-                Image("MenuUI")
-                    .resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    )
+                GetBackground(type: .MenuUI)
             )
 
             // CENTER AREA
@@ -41,13 +51,9 @@ struct BattleView: View {
                 VStack {
                     Spacer()
                 }
-                .frame(maxWidth: 15)
+                .frame(maxWidth: 25)
                 .background(
-                    Image("DividerUI")
-                        .resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        )
+                    GetBackground(type: .DividerUI)
                 )
 
                 VStack {
@@ -59,13 +65,9 @@ struct BattleView: View {
                 VStack {
                     Spacer()
                 }
-                .frame(maxWidth: 15)
+                .frame(maxWidth: 25)
                 .background(
-                    Image("DividerUI")
-                        .resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        )
+                    GetBackground(type: .DividerUI)
                 )
             }
 
@@ -78,11 +80,7 @@ struct BattleView: View {
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(
-                                Image("ButtonUI")
-                                    .resizable(
-                                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                        resizingMode: .tile
-                                    )
+                                GetBackground(type: .ButtonUI)
                             )
                     }
 
@@ -91,29 +89,21 @@ struct BattleView: View {
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(
-                                Image("ButtonUI")
-                                    .resizable(
-                                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                        resizingMode: .tile
-                                    )
+                                GetBackground(type: .ButtonUI)
                             )
 
                         Button("Run") {
-                            goBack()
+                            Return()
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-                            Image("ButtonUI")
-                                .resizable(
-                                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                    resizingMode: .tile
-                                )
+                            GetBackground(type: .ButtonUI)
                         )
                     }
                 }
             }
-            .frame(height: 150)
+            .frame(height: 180)
             .padding()
             .background(
                 Image("MenuUI")
@@ -125,8 +115,4 @@ struct BattleView: View {
         }
         .ignoresSafeArea(edges: .all)
     }
-}
-
-#Preview {
-    BattleView()
 }
