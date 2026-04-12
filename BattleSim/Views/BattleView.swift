@@ -1,63 +1,61 @@
-//
-//  BattleView.swift
-//  BattleSim
-//
-//  Created by Quintin Dennison on 2026-04-08.
-//
-
 import SwiftUI
+import SwiftData
 
 struct BattleView: View {
+
     @Binding var player: PlayerObj
-    
+    @Environment(\.modelContext) private var context
+
+    @State private var enemy: BattleMonster?
+
     var Return: () -> Void
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            
-            HStack{
+
+            HStack {
                 Spacer()
             }
             .frame(height: 35)
             .padding()
             .background(Image("MenuUI").resizable(
-                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                    resizingMode: .tile
-                )
-            )
-            
-            HStack(spacing:0){
-                VStack{
-                    Spacer()
-                }
-                .frame(maxWidth: 15)
-                .background(Image("DividerUI").resizable(
+                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                resizingMode: .tile
+            ))
+
+            HStack(spacing: 0) {
+
+                VStack { Spacer() }
+                    .frame(maxWidth: 15)
+                    .background(Image("DividerUI").resizable(
                         capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
                         resizingMode: .tile
-                    )
-                )
-                
-                VStack{
+                    ))
+
+                VStack {
+                    if let enemy = enemy {
+                        Text(enemy.name)
+                        Text("HP: \(enemy.health)/\(enemy.maxHealth)")
+                    } else {
+                        Text("No enemy")
+                    }
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.gray)
-                
-                VStack{
-                    Spacer()
-                }
-                .frame(maxWidth: 15)
-                .background(Image("DividerUI").resizable(
+
+                VStack { Spacer() }
+                    .frame(maxWidth: 15)
+                    .background(Image("DividerUI").resizable(
                         capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
                         resizingMode: .tile
-                    )
-                )
+                    ))
             }
-            
-            HStack{
-                VStack{
-                    
-                    HStack{
+
+            HStack {
+                VStack {
+
+                    HStack {
                         Text("Health: ").bold()
                         Spacer()
                         Healthbar(health: player.health, maxHealth: player.maxHealth)
@@ -66,62 +64,61 @@ struct BattleView: View {
                     .background(Image("DividerUI").resizable(
                         capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
                         resizingMode: .tile
-                    )
-                )
-                    
-                    HStack{
+                    ))
+
+                    HStack {
                         Button("Attack") {
-                            
-                        }.padding()
+
+                            guard var enemy else { return }
+
+                            let result = BattleController.performTurn(
+                                player: &player,
+                                weaponIndex: 0,
+                                enemy: &enemy
+                            )
+
+                            self.enemy = enemy
+
+                            if result.enemyDied {
+                                self.enemy = EnemyGen.generateEnemy(
+                                    context: context,
+                                    difficulty: 0.5
+                                )
+                            }
+                        }
+                        .padding()
                         .frame(maxWidth: .infinity)
                         .background(Image("ButtonUI").resizable(
-                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                resizingMode: .tile
-                            )
-                        )
+                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                            resizingMode: .tile
+                        ))
                     }
-                    HStack{
-                        Button("Defend") {
-                            
-                        }.padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Image("ButtonUI").resizable(
-                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                resizingMode: .tile
-                            )
-                        )
-                        
-                        Button("Run") {
-                            
-                        }.padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Image("ButtonUI").resizable(
-                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                resizingMode: .tile
-                            )
-                        )
+
+                    HStack {
+                        Button("Defend") { }
+
+                        Button("Run") { }
                     }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Image("ButtonUI").resizable(
+                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                        resizingMode: .tile
+                    ))
                 }
+
                 Spacer()
             }
             .frame(height: 150)
             .padding()
             .background(Image("MenuUI").resizable(
-                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                    resizingMode: .tile
-                )
-            )
+                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                resizingMode: .tile
+            ))
         }
         .ignoresSafeArea(edges: .all)
-    }
-}
-
-#Preview {
-    struct BattleViewPreviewWrapper: View {
-        @State private var player = PlayerObj(money: 1000, health: 100, maxHealth: 100, maxWeapons: 1, weapons: [])
-        var body: some View {
-            BattleView(player: $player, Return: {})
+        .onAppear {
+            enemy = EnemyGen.generateEnemy(context: context, difficulty: 0.5)
         }
     }
-    return BattleViewPreviewWrapper()
 }

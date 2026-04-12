@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct BattleSimApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -9,15 +9,16 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+
     @State var screen: Screen = .village
     @State var player = PlayerObj(money: 0, health: 15, maxHealth: 20, maxWeapons: 1, weapons: [])
 
     @Environment(\.modelContext) private var context
-    
+
     enum Screen {
         case village, battle, journal
     }
-    
+
     var body: some View {
         Group {
             switch screen {
