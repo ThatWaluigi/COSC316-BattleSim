@@ -35,5 +35,8 @@ struct PlayerHeader: View {
                 UIHelper.GetBackground(type: .DividerUI)
             )
         }
+        else{
+            Text("Loading...")
+        }
     }
 }

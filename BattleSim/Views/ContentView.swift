@@ -49,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().modelContainer(for: [Player.self, Enemy.self], inMemory:true)
 }
