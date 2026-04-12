@@ -1,6 +1,7 @@
-class BattleEnemy{
+@MainActor
+class BattleEnemy: ObservableObject{
     var name: String
-    var curHp: Int
+    @Published var curHp: Int
     var maxHp: Int
     var imageName: String
 
@@ -12,5 +13,11 @@ class BattleEnemy{
         self.maxHp = maxHp
         self.imageName = imageName
         self.weapon = weapon
+    }
+
+    func TakeDamage(amount:Int) -> Bool{
+        curhp = max(curhp - amount, 0)
+
+        return hp <= 0
     }
 }

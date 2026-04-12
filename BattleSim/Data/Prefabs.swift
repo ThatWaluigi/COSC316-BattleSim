@@ -10,7 +10,7 @@ final class PrefabEnemy{
     }
 }
 
-enum WeaponRarity {
+enum WeaponRarity: String {
     case common, uncommon, rare, legendary
 }
 

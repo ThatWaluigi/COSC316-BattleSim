@@ -13,6 +13,8 @@ struct BattleView: View {
 
     @StateObject private var controller = BattleController()
 
+    @Query var players: [Player]
+
     var body: some View {
         VStack(spacing: 0) {
 
@@ -79,5 +81,10 @@ struct BattleView: View {
             )
         }
         .ignoresSafeArea(edges: .all)
+    }
+    .onAppear {
+        if let player = players.first {
+            controller.AssignPlayer(player)
+        }
     }
 }
