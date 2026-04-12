@@ -1,5 +1,6 @@
 import SwiftData
 
+// For Journal Logging
 @Model
 class Enemy {
     var name: String
@@ -15,6 +16,7 @@ class Enemy {
     }
 }
 
+// Acts as the save file
 @Model
 class Player {
     var hp: Int
