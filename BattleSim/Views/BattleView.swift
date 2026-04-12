@@ -13,28 +13,39 @@ struct BattleView: View {
     var body: some View {
         VStack(spacing: 0) {
 
+            // TOP BAR
             HStack {
                 Spacer()
             }
             .frame(height: 35)
             .padding()
-            .background(Image("MenuUI").resizable(
-                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                resizingMode: .tile
-            ))
+            .background(
+                Image("MenuUI").resizable(
+                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                    resizingMode: .tile
+                )
+            )
 
+            // MAIN AREA
             HStack(spacing: 0) {
 
                 VStack { Spacer() }
                     .frame(maxWidth: 15)
-                    .background(Image("DividerUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
+                    .background(
+                        Image("DividerUI").resizable(
+                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                            resizingMode: .tile
+                        )
+                    )
 
                 VStack {
-                    Text(enemy.name)
-                    Text("HP: \(enemy.health)/\(enemy.maxHealth)")
+                    if let enemy = enemy {
+                        Text(enemy.name)
+                        Text("HP: \(enemy.health)/\(enemy.maxHealth)")
+                    } else {
+                        Text("Spawning enemy...")
+                    }
+
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
@@ -42,26 +53,34 @@ struct BattleView: View {
 
                 VStack { Spacer() }
                     .frame(maxWidth: 15)
-                    .background(Image("DividerUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
+                    .background(
+                        Image("DividerUI").resizable(
+                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                            resizingMode: .tile
+                        )
+                    )
             }
 
+            // BOTTOM CONTROLS
             HStack {
+
                 VStack {
 
+                    // PLAYER HEALTH
                     HStack {
                         Text("Health: ").bold()
                         Spacer()
                         Healthbar(health: player.health, maxHealth: player.maxHealth)
                     }
                     .padding(3)
-                    .background(Image("DividerUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
+                    .background(
+                        Image("DividerUI").resizable(
+                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                            resizingMode: .tile
+                        )
+                    )
 
+                    // ATTACK
                     HStack {
                         Button("Attack") {
 
@@ -78,39 +97,46 @@ struct BattleView: View {
                             if result.enemyDied {
                                 self.enemy = EnemyGen.generateEnemy(
                                     context: context,
-                                    difficulty: 0.5
+                                    difficulty: player.difficulty
                                 )
                             }
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Image("ButtonUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        ))
+                        .background(
+                            Image("ButtonUI").resizable(
+                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                                resizingMode: .tile
+                            )
+                        )
                     }
 
+                    // DEFEND + RUN
                     HStack {
 
                         Button("Defend") {
-                            // defend logic
+                            // future logic
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Image("ButtonUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        ))
+                        .background(
+                            Image("ButtonUI").resizable(
+                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                                resizingMode: .tile
+                            )
+                        )
 
                         Button("Run") {
-                            // run logic
+                            Return()
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Image("ButtonUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        ))
+                        .background(
+                            Image("ButtonUI").resizable(
+                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                                resizingMode: .tile
+                            )
+                        )
                     }
                 }
 
@@ -118,14 +144,19 @@ struct BattleView: View {
             }
             .frame(height: 150)
             .padding()
-            .background(Image("MenuUI").resizable(
-                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                resizingMode: .tile
-            ))
+            .background(
+                Image("MenuUI").resizable(
+                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                    resizingMode: .tile
+                )
+            )
         }
         .ignoresSafeArea(edges: .all)
         .onAppear {
-            enemy = EnemyGen.generateEnemy(context: context, difficulty: 0.5)
+            enemy = EnemyGen.generateEnemy(
+                context: context,
+                difficulty: player.difficulty
+            )
         }
     }
 }
