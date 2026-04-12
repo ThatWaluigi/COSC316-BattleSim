@@ -40,7 +40,7 @@ struct BattleView: View {
                     )
 
                 VStack {
-                    // Enemy Visualizer View
+                    EnemyView(controller.enemy)
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
