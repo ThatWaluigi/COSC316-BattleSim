@@ -12,6 +12,7 @@ struct UIHelper {
         case MenuUI
         case DividerUI
         case ButtonUI
+        case Temp
     }
     
     static func GetBackground(type: UI_BGS) -> some View{

@@ -40,7 +40,10 @@ struct BattleView: View {
                     )
 
                 VStack {
-                    EnemyView(controller.enemy)
+                    if let enemy = controller.enemy {
+                        EnemyView(enemy: controller.enemy!)
+                    }
+    
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
