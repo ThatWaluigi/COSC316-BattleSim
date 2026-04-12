@@ -18,10 +18,7 @@ struct EnemyView: View {
             Spacer()
             
             HStack{
-                Color.clear
-                    .background(
-                        UIHelper.GetBackground(type: .Temp)
-                    )
+                UIHelper.GetEnemyArt(enemy.imageName)
             }.padding(20)
         }
     }

@@ -22,4 +22,11 @@ struct UIHelper {
                 resizingMode: .tile
             )
     }
+
+    static func GetEnemyArt(image: String) -> some View{
+        return Image(image)
+            .resizable()
+            .interpolation(.none)
+            .aspectRatio(contentMode:.fit)
+    }
 }
