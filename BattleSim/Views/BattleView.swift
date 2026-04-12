@@ -33,12 +33,8 @@ struct BattleView: View {
                     ))
 
                 VStack {
-                    if let enemy = enemy {
-                        Text(enemy.name)
-                        Text("HP: \(enemy.health)/\(enemy.maxHealth)")
-                    } else {
-                        Text("No enemy")
-                    }
+                    Text(enemy.name)
+                    Text("HP: \(enemy.health)/\(enemy.maxHealth)")
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
@@ -95,16 +91,27 @@ struct BattleView: View {
                     }
 
                     HStack {
-                        Button("Defend") { }
 
-                        Button("Run") { }
+                        Button("Defend") {
+                            // defend logic
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Image("ButtonUI").resizable(
+                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                            resizingMode: .tile
+                        ))
+
+                        Button("Run") {
+                            // run logic
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Image("ButtonUI").resizable(
+                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                            resizingMode: .tile
+                        ))
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Image("ButtonUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
                 }
 
                 Spacer()
