@@ -7,197 +7,100 @@ import SwiftUI
 import SwiftData
 
 struct BattleView: View {
-    @Binding var player: PlayerObj
-    var Return: () -> Void
 
     @Environment(\.modelContext) private var context
 
-    @State private var enemy: BattleMonster? = nil
-    @State private var selectedWeaponIndex: Int? = nil
+    @Query private var monsters: [Monsters]
+    @Query private var weapons: [Weapons]
+    @Query private var players: [Player]
 
-    // animation + flow control
-    @State private var isEnemyHitFlash = false
-    @State private var showRewards = false
+    @State private var battleState: BattleState?
+    @State private var attackFlash: Bool = false
+
+    var Return: () -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
 
-            // TOP BAR
-            HStack { Spacer() }
-                .frame(height: 35)
-                .padding()
-                .background(
-                    Image("MenuUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    )
-                )
+        VStack {
 
-            // MAIN AREA
-            HStack(spacing: 0) {
-
-                VStack { Spacer() }
-                    .frame(maxWidth: 15)
-                    .background(Image("DividerUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
+            if let state = battleState {
 
                 VStack {
-                    Spacer()
 
-                    if let enemy = enemy {
-                        Text(enemy.name)
-                            .font(.headline)
+                    Text(state.enemy.name)
 
-                        Text("HP: \(enemy.health)/\(enemy.maxHealth)")
-                            .opacity(isEnemyHitFlash ? 0.3 : 1.0)
-                            .animation(.easeInOut(duration: 0.15), value: isEnemyHitFlash)
-                    }
+                    Text("HP: \(state.enemy.health)/\(state.enemy.maxHealth)")
 
-                    if showRewards {
-                        Text("Rewards earned!")
-                            .transition(.opacity)
-                    }
+                        .opacity(attackFlash ? 0.3 : 1.0)
 
-                    Spacer()
+                        .animation(.easeInOut(duration: 0.15), value: attackFlash)
+
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color.gray)
 
-                VStack { Spacer() }
-                    .frame(maxWidth: 15)
-                    .background(Image("DividerUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
-            }
+                HStack {
 
-            // ACTION PANEL
-            HStack {
-                VStack {
-
-                    // HEALTH
-                    HStack {
-                        Text("Health: ").bold()
-                        Spacer()
-                        Healthbar(health: player.health, maxHealth: player.maxHealth)
-                    }
-                    .padding(3)
-                    .background(Image("DividerUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
-
-                    // WEAPON SELECT
-                    HStack {
-                        ForEach(player.weapons.indices, id: \.self) { i in
-                            Button {
-                                selectedWeaponIndex = i
-                            } label: {
-                                Text(player.weapons[i].baseName)
-                                    .padding(6)
-                                    .background(
-                                        selectedWeaponIndex == i
-                                        ? Image("ButtonUI").resizable(
-                                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                            resizingMode: .tile
-                                        )
-                                        : nil
-                                    )
-                            }
+                    ForEach(players.first?.inventory ?? [], id: \.baseName) { weapon in
+                        Button(weapon.baseName) {
+                            attack(with: weapon)
                         }
-                    }
-
-                    // ATTACK
-                    Button("Attack") {
-                        guard
-                            let enemy = enemy,
-                            let index = selectedWeaponIndex
-                        else { return }
-
-                        triggerEnemyHitAnimation()
-
-                        let result = BattleController.performTurn(
-                            player: &player,
-                            weaponIndex: index,
-                            enemy: &self.enemy!
-                        )
-
-                        if result.enemyDied {
-                            handleEnemyDeath()
-                        }
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Image("ButtonUI").resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    ))
-
-                    HStack {
-                        Button("Defend") { }
-                        Button("Run") { }
+                        .padding()
+                        .background(Image("ButtonUI"))
                     }
                 }
 
-                Spacer()
+                Button("Run") {
+                    Return()
+                }
+
+            } else {
+                Text("Loading battle...")
+                    .onAppear {
+                        startBattle()
+                    }
             }
-            .frame(height: 150)
-            .padding()
-            .background(Image("MenuUI").resizable(
-                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                resizingMode: .tile
-            ))
-        }
-        .ignoresSafeArea()
-        .task {
-            loadEnemyOnce()
         }
     }
 
-    // MARK: - Enemy Spawn (ONLY ONCE)
+    // MARK: Battle Actions
 
-    private func loadEnemyOnce() {
-        guard enemy == nil else { return }
+    private func startBattle() {
+        guard let player = players.first else { return }
 
-        let monsters = try? context.fetch(FetchDescriptor<Monsters>())
-        let weapons = try? context.fetch(FetchDescriptor<Weapons>())
-
-        guard let monsters, let weapons else { return }
-
-        enemy = EnemyGen.generateEnemy(
-            from: monsters,
+        battleState = BattleController.startBattle(
+            monsters: monsters,
             weapons: weapons,
-            difficulty: playerDifficulty()
+            difficulty: player.difficulty
         )
     }
 
-    // MARK: - Animation Hook
+    private func attack(with weapon: Weapons) {
+        guard var state = battleState,
+              let player = players.first else { return }
 
-    private func triggerEnemyHitAnimation() {
-        isEnemyHitFlash = true
+        attackFlash = true
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            isEnemyHitFlash = false
-        }
-    }
-
-    // MARK: - Death Flow (NO instant return)
-
-    private func handleEnemyDeath() {
-        withAnimation {
-            showRewards = true
+            attackFlash = false
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            Return()
+        let result = BattleController.playerAttack(
+            state: &state,
+            player: PlayerObj(
+                money: 0,
+                health: player.health,
+                maxHealth: player.maxHealth,
+                maxWeapons: player.maxWeapons,
+                weapons: player.inventory
+            ),
+            weapon: weapon
+        )
+
+        battleState = state
+
+        if result.enemyDied {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                Return()
+            }
         }
-    }
-
-    // MARK: - Difficulty source (TEMP)
-
-    private func playerDifficulty() -> Float {
-        0.2
     }
 }

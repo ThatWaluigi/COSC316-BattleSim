@@ -1,32 +1,30 @@
-import SwiftData
+//
+//  EnemyGen.swift
+//  BattleSim
+//
 
 struct EnemyGen {
 
     static func generateEnemy(
-        context: ModelContext,
+        from monsters: [Monsters],
+        weapons: [Weapons],
         difficulty: Float
     ) -> BattleMonster {
 
-        let monsters = (try? context.fetch(FetchDescriptor<Monsters>())) ?? []
-        let weapons = (try? context.fetch(FetchDescriptor<Weapons>())) ?? []
-
-        guard let chosenMonster = monsters.randomElement() else {
-            return BattleMonster(
-                prefab: Monsters(baseName: "Fallback", baseHealth: 10, baseAttack: 1, minRarity: .Common, maxRarity: .Common),
-                weapon: Weapons(baseName: "Fist", baseAttack: 1, rarity: .Common),
-                difficulty: difficulty
-            )
-        }
+        let chosenMonster = monsters.randomElement()!
 
         let validWeapons = weapons.filter { weapon in
-            let rarity = weapon.rarity.rawValue
-            return rarity >= chosenMonster.minRarity.rawValue &&
-                   rarity <= chosenMonster.maxRarity.rawValue
+            let r = weapon.rarity.rawValue
+            return r >= chosenMonster.minRarity.rawValue &&
+                   r <= chosenMonster.maxRarity.rawValue
         }
 
-        let weapon = validWeapons.randomElement()
-            ?? Weapons(baseName: "Fist", baseAttack: 1, rarity: .Common)
+        let weapon = validWeapons.randomElement()!
 
-        return BattleMonster(prefab: chosenMonster, weapon: weapon, difficulty: difficulty)
+        return BattleMonster(
+            prefab: chosenMonster,
+            weapon: weapon,
+            difficulty: difficulty
+        )
     }
 }
