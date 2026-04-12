@@ -32,6 +32,11 @@ struct BattleView: View {
             )
     }
 
+    var ActionState: PlayerActionState = .main
+    enum PlayerActionState {
+        case main, attack, victory, defeat
+    }
+
     var body: some View {
         VStack(spacing: 0) {
 
@@ -73,34 +78,8 @@ struct BattleView: View {
 
             // BOTTOM BAR
             HStack {
-                VStack {
-
-                    HStack {
-                        Button("Attack") { }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                GetBackground(type: .ButtonUI)
-                            )
-                    }
-
-                    HStack {
-                        Button("Defend") { }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                GetBackground(type: .ButtonUI)
-                            )
-
-                        Button("Run") {
-                            Return()
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            GetBackground(type: .ButtonUI)
-                        )
-                    }
+                switch ActionState {
+                    .main: {ActionView()}
                 }
             }
             .frame(height: 180)
