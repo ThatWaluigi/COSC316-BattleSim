@@ -22,15 +22,7 @@ struct HomeView: View {
                 .frame(height: 50)
                 .padding()
                 .background(
-                    GetBackground(type: .MenuUI)
-                )
-
-                HStack {
-                    Spacer()
-                }
-                .frame(maxWidth: 25)
-                .background(
-                    GetBackground(type: .DividerUI)
+                    UIHelper.GetBackground(type: .MenuUI)
                 )
             }
 
@@ -46,43 +38,16 @@ struct HomeView: View {
             // BOTTOM BAR
             HStack {
                 VStack {
-
-                    HStack {
-                        Button("Attack") { }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                GetBackground(type: .ButtonUI)
-                            )
-                    }
-
-                    HStack {
-                        Button("Defend") { }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                GetBackground(type: .ButtonUI)
-                            )
-
-                        Button("Run") {
-                            Return()
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            GetBackground(type: .ButtonUI)
-                        )
+                    Button("Fight"){
+                        Battle()
                     }
                 }
             }
             .frame(height: 180)
+            .frame(maxWidth: .infinity)
             .padding()
             .background(
-                Image("MenuUI")
-                    .resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    )
+                UIHelper.GetBackground(type: .MenuUI)
             )
         }
         .ignoresSafeArea(edges: .all)

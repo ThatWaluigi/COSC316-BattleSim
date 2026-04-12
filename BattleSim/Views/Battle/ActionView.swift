@@ -1,4 +1,8 @@
-struct Actions: View{
+import SwiftUI
+
+struct ActionView: View{
+    var Return: () -> Void
+    
     var body: some View {
         VStack {
             HStack {
@@ -6,7 +10,7 @@ struct Actions: View{
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(
-                        GetBackground(type: .ButtonUI)
+                        UIHelper.GetBackground(type: .ButtonUI)
                     )
             }
 
@@ -15,7 +19,7 @@ struct Actions: View{
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(
-                        GetBackground(type: .ButtonUI)
+                        UIHelper.GetBackground(type: .ButtonUI)
                     )
 
                 Button("Run") {
@@ -24,7 +28,7 @@ struct Actions: View{
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(
-                    GetBackground(type: .ButtonUI)
+                    UIHelper.GetBackground(type: .ButtonUI)
                 )
             }
         }

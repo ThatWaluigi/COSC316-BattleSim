@@ -17,20 +17,6 @@ import SwiftUI
 struct BattleView: View {
 
     var Return: () -> Void
-    
-    enum UI_BGS: String{
-        case MenuUI
-        case DividerUI
-        case ButtonUI
-    }
-    
-    func GetBackground(type: UI_BGS) -> some View{
-        return Image(type.rawValue)
-            .resizable(
-                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                resizingMode: .tile
-            )
-    }
 
     var ActionState: PlayerActionState = .main
     enum PlayerActionState {
@@ -47,7 +33,7 @@ struct BattleView: View {
             .frame(height: 50)
             .padding()
             .background(
-                GetBackground(type: .MenuUI)
+                UIHelper.GetBackground(type: .MenuUI)
             )
 
             // CENTER AREA
@@ -58,7 +44,7 @@ struct BattleView: View {
                 }
                 .frame(maxWidth: 25)
                 .background(
-                    GetBackground(type: .DividerUI)
+                    UIHelper.GetBackground(type: .DividerUI)
                 )
 
                 VStack {
@@ -72,24 +58,27 @@ struct BattleView: View {
                 }
                 .frame(maxWidth: 25)
                 .background(
-                    GetBackground(type: .DividerUI)
+                    UIHelper.GetBackground(type: .DividerUI)
                 )
             }
 
             // BOTTOM BAR
             HStack {
                 switch ActionState {
-                    .main: {ActionView()}
+                case .main:
+                    ActionView(Return: Return)
+                case .attack:
+                    Text("Hit")
+                case .victory:
+                    Text("Win")
+                case .defeat:
+                    Text("Lose")
                 }
             }
             .frame(height: 180)
             .padding()
             .background(
-                Image("MenuUI")
-                    .resizable(
-                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                        resizingMode: .tile
-                    )
+                UIHelper.GetBackground(type: .MenuUI)
             )
         }
         .ignoresSafeArea(edges: .all)
