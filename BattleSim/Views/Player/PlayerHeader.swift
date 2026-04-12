@@ -6,34 +6,34 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PlayerHeader: View {
-    var hp: Int = 80
-    var max: Int = 100
-    
-    var money: Int = 100000
+    @Query private var players: [Player]
     
     var body: some View {
-        HStack{
-            Group{
-                Text("Health: ").bold(true)
-                Spacer()
-                Healthbar(health: hp, maxHealth: max)
-            }
-                        
-            Spacer()
-            Text("|").foregroundStyle(Color(.brown))
-            Spacer()
-            
-            
+        if let player = players.first {
             HStack{
-                Text("Money:").bold(true)
-                Text("\(money)").foregroundStyle(.yellow)
+                Group{
+                    Text("Health: ").bold(true)
+                    Spacer()
+                    Healthbar(health: player.hp, maxHealth: player.maxHP)
+                }
+                            
+                Spacer()
+                Text("|").foregroundStyle(Color(.brown))
+                Spacer()
+                
+                
+                HStack{
+                    Text("Money:").bold(true)
+                    Text("\(player.gold)").foregroundStyle(.yellow)
+                }
             }
+            .padding(4)
+            .background(
+                UIHelper.GetBackground(type: .DividerUI)
+            )
         }
-        .padding(4)
-        .background(
-            UIHelper.GetBackground(type: .DividerUI)
-        )
     }
 }
