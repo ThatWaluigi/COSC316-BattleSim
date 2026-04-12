@@ -9,6 +9,8 @@ struct WeaponView: View{
     
     var body: some View {
         VStack {
+            Spacer()
+            
             HStack {
                 ForEach(weapons, id: \.name){ slot in
                     Button("\(slot.name)"){
