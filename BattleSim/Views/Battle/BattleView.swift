@@ -67,7 +67,7 @@ struct BattleView: View {
                         playerAttack: { weapon in
                             controller.PlayerAttack(weapon: weapon)
                         },
-                        weapons: [] // replace when adding player
+                        weapons: controller.GetPlayerWeapons()
                     )
                 case .victory:
                     Text("Win")

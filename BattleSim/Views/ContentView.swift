@@ -15,18 +15,31 @@ struct ContentView: View {
         case village, battle, journal
     }
 
+    @Enviroment(.\modelContainer) private var context
+    @Query private var players: [Player]
+
     var body: some View {
-        switch screen {
-            case .village:
-                HomeView(Battle: { screen = .battle },
-                         Journal: { screen = .journal }
-                )
-                
-            case .battle:
-                BattleView(Return: { screen = .village })
-                
-            case .journal:
-                JournalView(Return: { screen = .village })
+        Group{
+            switch screen {
+                case .village:
+                    HomeView(Battle: { screen = .battle },
+                            Journal: { screen = .journal }
+                    )
+                    
+                case .battle:
+                    BattleView(Return: { screen = .village })
+                    
+                case .journal:
+                    JournalView(Return: { screen = .village })
+            }
+        }
+        .onAppear{
+            if players.first == nil {
+                let player = Player()
+                let firstWeapon = allWeapons[1]
+                player.inventory.add(firstWeapon)
+                context.insert(player)
+            }
         }
     }
 }

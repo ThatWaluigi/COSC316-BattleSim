@@ -20,6 +20,10 @@ class BattleController: ObservableObject {
     func AssignPlayer(player: Player){
         self.player = player
     }
+
+    func GetPlayerWeapons() -> [PlayerWeapon]{
+        return player.inventory
+    }
     
     func ChangeState(state: PlayerActionState){
         self.state = state

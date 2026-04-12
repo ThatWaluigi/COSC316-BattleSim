@@ -3,9 +3,9 @@ import SwiftUI
 struct WeaponView: View{
 
     var Back: () -> Void
-    var playerAttack: (PrefabWeapon) -> Void
+    var playerAttack: (PlayerWeapon) -> Void
 
-    let weapons: [PrefabWeapon]
+    let weapons: [PlayerWeapon]
     
     var body: some View {
         VStack {

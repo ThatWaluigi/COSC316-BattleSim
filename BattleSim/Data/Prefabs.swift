@@ -50,6 +50,7 @@ struct Prefabs {
 
     // 
     static let allWeapons: [PrefabWeapon] = [
+        PrefabWeapon(name: "Small Stick", damage: 3, rarity: .common),
         PrefabWeapon(name: "Rusty Dagger", damage: 5, rarity: .common),
         PrefabWeapon(name: "Wooden Club", damage: 6, rarity: .common),
         PrefabWeapon(name: "Old Sword", damage: 7, rarity: .common),
