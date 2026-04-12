@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BattleView: View {
-    @Binding var Player: PlayerObj
+    @Binding var player: PlayerObj
 
     var Return: () -> Void
     

@@ -49,7 +49,7 @@ enum WeaponRarity: Int, Codable{
 
 @Model
 class Player {
-    var diffculty: Float;
+    var difficulty: Float;
     
     var health: Int;
     var maxHealth: Int;

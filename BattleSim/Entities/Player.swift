@@ -16,7 +16,7 @@ struct PlayerObj {
     var maxWeapons: Int;
     var weapons: [Weapons]
     
-    mutating func TakeDamage(amount: Int) -> Bool {
+    mutating func takeDamage(amount: Int) -> Bool {
         health -= amount;
         return health <= 0;
     }

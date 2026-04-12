@@ -12,16 +12,12 @@ struct BattleMonster {
 
     var weapon: Weapons
 
-    init(prefab: Monsters, weaponPool: [Weapons]) {
+    init(prefab: Monsters, weapon: Weapons, difficulty: Float) {
         self.name = prefab.baseName
-        self.health = prefab.baseHealth
-        self.attack = prefab.baseAttack
+        self.health = prefab.baseHealth * (1 + difficulty)
+        self.attack = prefab.baseAttack * (1 + difficulty * 0.5)
 
-        if let weapon = prefab.weapon {
-            self.weapon = weapon
-        } else {
-            self.weapon = weaponPool.randomElement()!
-        }
+        self.weapon = weapon
     }
 
     mutating func TakeDamage(amount: Int) -> Bool {
