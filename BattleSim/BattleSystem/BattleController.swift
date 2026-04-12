@@ -6,20 +6,20 @@
 //
 
 struct BattleController {
-    static func performTurn(player: inout PlayerObj, enemy: inout BattleMonster) -> BattleResult {
+    static func performTurn(player: inout PlayerObj, weaponIndex:Int, enemy: inout BattleMonster) -> BattleResult {
 
         // Player attacks
-        enemy.health -= player.weapons.first?.baseAttack ?? 5 // Change to player selection later
+        let enemyDied = enemy.takeDamage(amount: player.weapons[weaponIndex].baseAttack)
 
         // Enemy dies
-        if enemy.health <= 0 {
+        if enemyDied {
             return BattleResult(playerDied: false, enemyDied: true)
         }
 
         // Enemy attacks
-        let died = player.TakeDamage(amount: enemy.attack)
+        let playerDied = player.takeDamage(amount: enemy.attack + enemy.weapon.baseAttack)
 
-        return BattleResult(playerDied: died, enemyDied: false)
+        return BattleResult(playerDied: playerDied, enemyDied: false)
     }
 }
 

@@ -14,8 +14,8 @@ struct ContentView: View {
     
     var body: some View {
         switch screen {
-            case .village: HomeView(Player: $player, Battle: { screen = .battle}, Journal: { screen = .journal})
-            case .battle: BattleView(Player: $player, Return: { screen = .village })
+            case .village: HomeView(player: $player, Battle: { screen = .battle}, Journal: { screen = .journal})
+            case .battle: BattleView(player: $player, Return: { screen = .village })
             case .journal: JournalView(Return: { screen = .village })
         }
     }

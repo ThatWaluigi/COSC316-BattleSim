@@ -59,7 +59,7 @@ class Player {
     var maxWeapons: Int;
     
     init(difficulty:Float, maxHealth: Int, money: Int, inventory: [Weapons], maxWeapons: Int) {
-        self.diffculty = difficulty
+        self.difficulty = difficulty
         self.health = maxHealth
         self.maxHealth = maxHealth
         self.money = money

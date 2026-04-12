@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BattleView: View {
     @Binding var player: PlayerObj
-
+    
     var Return: () -> Void
     
     var body: some View {
@@ -57,11 +57,21 @@ struct BattleView: View {
             HStack{
                 VStack{
                     
-                    Healthbar(health: player.health, maxHealth: player.maxHealth)
+                    HStack{
+                        Text("Health: ").bold()
+                        Spacer()
+                        Healthbar(health: player.health, maxHealth: player.maxHealth)
+                    }
+                    .padding(3)
+                    .background(Image("DividerUI").resizable(
+                        capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                        resizingMode: .tile
+                    )
+                )
                     
                     HStack{
                         Button("Attack") {
-                            Player.TakeDamage(amount: 12)
+                            
                         }.padding()
                         .frame(maxWidth: .infinity)
                         .background(Image("ButtonUI").resizable(
@@ -110,7 +120,7 @@ struct BattleView: View {
     struct BattleViewPreviewWrapper: View {
         @State private var player = PlayerObj(money: 1000, health: 100, maxHealth: 100, maxWeapons: 1, weapons: [])
         var body: some View {
-            BattleView(Player: $player, Return: {})
+            BattleView(player: $player, Return: {})
         }
     }
     return BattleViewPreviewWrapper()

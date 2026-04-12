@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Binding var Player: PlayerObj
+    @Binding var player: PlayerObj
     
     var Battle: () -> Void
     var Journal: () -> Void
@@ -28,7 +28,7 @@ struct HomeView: View {
     struct HomeViewPreviewWrapper: View {
         @State private var player = PlayerObj(money: 500, health: 45, maxHealth: 50, maxWeapons: 1, weapons: [])
         var body: some View {
-            HomeView(Player: $player, Battle: {}, Journal: {})
+            HomeView(player: $player, Battle: {}, Journal: {})
         }
     }
     return HomeViewPreviewWrapper()

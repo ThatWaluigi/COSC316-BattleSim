@@ -15,15 +15,21 @@ struct BattleMonster {
 
     init(prefab: Monsters, weapon: Weapons, difficulty: Float) {
         self.name = prefab.baseName
-        self.maxHealth = prefab.baseHealth * (1 + difficulty)
+
+        // Compute in Float, round to nearest, then convert to Int
+        let healthFloat = Float(prefab.baseHealth) * (1 + difficulty)
+        self.maxHealth = Int(healthFloat.rounded())
+
         self.health = self.maxHealth
-        self.attack = prefab.baseAttack * (1 + difficulty * 0.5)
+
+        let attackFloat = Float(prefab.baseAttack) * (1 + difficulty * 0.5)
+        self.attack = Int(attackFloat.rounded())
 
         self.weapon = weapon
     }
 
-    mutating func TakeDamage(amount: Int) -> Bool {
-        health -= amount;
-        return health <= 0;
+    mutating func takeDamage(amount: Int) -> Bool {
+        health -= amount
+        return health <= 0
     }
 }

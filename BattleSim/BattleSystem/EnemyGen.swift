@@ -5,11 +5,11 @@ struct EnemyGen {
         let validWeapons = weapons.filter {weapon in
             let rarity = weapon.rarity.rawValue
 
-            rarity >= chosenMonster.minRarity.rawValue && rarity <= chosenMonster.maxRarity.rawValue
+            return rarity >= chosenMonster.minRarity.rawValue && rarity <= chosenMonster.maxRarity.rawValue
         }
 
-        let weapon = validWeapons.randomElement()
+        let weapon = validWeapons.randomElement()!
 
-        return BattleMonster(prefab: chosenMonster, weapon: weapon)
+        return BattleMonster(prefab: chosenMonster, weapon: weapon, difficulty: difficulty)
     }
 }
