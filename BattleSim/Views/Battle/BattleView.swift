@@ -16,11 +16,11 @@ struct BattleView: View {
         VStack(spacing: 0) {
 
             // TOP BAR
-            HStack {
-                // Health Bar and Money View
+            VStack{
                 Spacer()
+                PlayerHeader()
             }
-            .frame(height: 50)
+            .frame(height: 70)
             .padding()
             .background(
                 UIHelper.GetBackground(type: .MenuUI)

@@ -16,15 +16,14 @@ struct HomeView: View {
 
             // TOP BAR
             VStack{
-                HStack {
-                    Spacer()
-                }
-                .frame(height: 50)
-                .padding()
-                .background(
-                    UIHelper.GetBackground(type: .MenuUI)
-                )
+                Spacer()
+                PlayerHeader()
             }
+            .frame(height: 70)
+            .padding()
+            .background(
+                UIHelper.GetBackground(type: .MenuUI)
+            )
 
             // CENTER AREA
             HStack(spacing: 0) {

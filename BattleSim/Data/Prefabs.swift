@@ -3,11 +3,11 @@ class PrefabEnemy{
     var maxHp: Int
     var imageName: String
 
-    init(name:String, maxHp:Int, imageName:String)[
+    init(name:String, maxHp:Int, imageName:String){
         self.name = name
         self.maxHp = maxHp
         self.imageName = imageName
-    ]
+    }
 }
 
 class PrefabWeapon{

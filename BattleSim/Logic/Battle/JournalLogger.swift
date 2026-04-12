@@ -1,3 +1,6 @@
+import SwiftUI
+import SwiftData
+
 struct JournalLogger {
     @Environment(\.modelContext) var context
     @Query var enemies: [Enemy]
