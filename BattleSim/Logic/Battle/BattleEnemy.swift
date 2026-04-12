@@ -4,10 +4,13 @@ class BattleEnemy{
     var maxHp: Int
     var imageName: String
 
-    init(name:String, maxHp:Int, imageName:String){
+    var weapon: PrefabWeapon
+
+    init(name:String, maxHp:Int, imageName:String, weapon:PrefabWeapon){
         self.name = name
         self.curHp = maxHp
         self.maxHp = maxHp
         self.imageName = imageName
+        self.weapon = weapon
     }
 }

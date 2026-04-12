@@ -17,6 +17,10 @@ class BattleController: ObservableObject {
     func ChangeState(state: PlayerActionState){
         self.state = state
     }
+
+    func PlayerAttack(weapon: PrefabWeapon){
+        
+    }
 }
 
 // Battle > Player UI State

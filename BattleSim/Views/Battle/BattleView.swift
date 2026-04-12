@@ -11,7 +11,7 @@ struct BattleView: View {
 
     var Return: () -> Void
 
-    @State private var controller = BattleController()
+    @StateObject private var controller = BattleController()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -59,7 +59,13 @@ struct BattleView: View {
                         onRun: Return
                     )
                 case .attack:
-                    Text("Hit")
+                    WeaponView(
+                        Back: {controller.ChangeState(state: .main)},
+                        playerAttack: {weapon in
+                            controller.PlayerAttack(with: weapon)    
+                        },
+                        weapons: [] // replace when adding player
+                    )
                 case .victory:
                     Text("Win")
                 case .defeat:
