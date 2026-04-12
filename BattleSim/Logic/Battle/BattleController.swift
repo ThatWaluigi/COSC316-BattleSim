@@ -8,7 +8,9 @@ class BattleController: ObservableObject {
 
     private var player: Player?
 
-    func startBattle(with prefab: PrefabEnemy) {
+    func startRandomBattle() {
+        let prefab = Prefabs.randomEnemy()
+
         enemy = BattleEnemy(
             name: prefab.name,
             maxHp: prefab.maxHp,

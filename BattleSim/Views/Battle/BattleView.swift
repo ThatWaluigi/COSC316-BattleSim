@@ -86,6 +86,8 @@ struct BattleView: View {
             if let player = players.first {
                 controller.AssignPlayer(player: player)
             }
+
+            controller.startRandomBattle()
         }
     }
 }

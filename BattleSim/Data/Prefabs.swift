@@ -82,6 +82,11 @@ struct Prefabs {
     ]
 }
 extension Prefabs {
+    static func randomEnemy() -> PrefabEnemy {
+        allEnemies.randomElement()!
+    }
+}
+extension Prefabs {
     static func randomWeapon() -> PrefabWeapon {
         let pool = allWeapons
 
