@@ -22,6 +22,7 @@ class BattleController: ObservableObject {
     }
 
     func GetPlayerWeapons() -> [PlayerWeapon]{
+        guard let player else { return [] }
         return player.inventory
     }
     
@@ -29,7 +30,7 @@ class BattleController: ObservableObject {
         self.state = state
     }
 
-    func PlayerAttack(weapon: PrefabWeapon){
+    func PlayerAttack(weapon: PlayerWeapon){
         guard let enemy = enemy else { return }
 
         if enemy.TakeDamage(amount: weapon.baseDamage){

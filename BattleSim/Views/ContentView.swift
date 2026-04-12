@@ -15,7 +15,7 @@ struct ContentView: View {
         case village, battle, journal
     }
 
-    @Enviroment(.\modelContainer) private var context
+    @Environment(\.modelContext) private var context
     @Query private var players: [Player]
 
     var body: some View {
@@ -36,8 +36,10 @@ struct ContentView: View {
         .onAppear{
             if players.first == nil {
                 let player = Player()
-                let firstWeapon = allWeapons[1]
-                player.inventory.add(firstWeapon)
+                let firstWeapon = Prefabs.allWeapons[0]
+                player.inventory.append(
+                    PlayerWeapon(name: firstWeapon.name, damage: firstWeapon.baseDamage, rarity: firstWeapon.rarity)
+                )
                 context.insert(player)
             }
         }
