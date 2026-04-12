@@ -1,162 +1,179 @@
+//
+//  BattleView.swift
+//  BattleSim
+//
+
 import SwiftUI
-import SwiftData
 
 struct BattleView: View {
-
     @Binding var player: PlayerObj
-    @Environment(\.modelContext) private var context
 
-    @State private var enemy: BattleMonster?
+    @State private var enemy: BattleMonster
+    @State private var battleEnded = false
+    @State private var didWin = false
+
+    @State private var selectingWeapon = false
+    @State private var selectedWeaponIndex: Int? = nil
+    @State private var isProcessingTurn = false
+
+    @State private var enemyShake = false
+    @State private var enemyFlash = false
 
     var Return: () -> Void
 
+    init(player: Binding<PlayerObj>, Return: @escaping () -> Void) {
+        self._player = player
+        self.Return = Return
+
+        self._enemy = State(initialValue: BattleMonster(
+            prefab: Monsters(baseName: "Slime", baseHealth: 10, baseAttack: 2, minRarity: .Common, maxRarity: .Common),
+            weapon: Weapons(baseName: "Stick", baseAttack: 1, rarity: .Common),
+            difficulty: 0
+        ))
+    }
+
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
 
-            // TOP BAR
-            HStack {
-                Spacer()
-            }
-            .frame(height: 35)
-            .padding()
-            .background(
-                Image("MenuUI").resizable(
-                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                    resizingMode: .tile
-                )
-            )
+            // MARK: Enemy
+            Text(enemy.name)
+                .offset(x: enemyShake ? -8 : 0)
+                .animation(.interpolatingSpring(stiffness: 500, damping: 20), value: enemyShake)
+                .opacity(enemyFlash ? 0.3 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: enemyFlash)
 
-            // MAIN AREA
-            HStack(spacing: 0) {
+            Text("HP: \(enemy.health)/\(enemy.maxHealth)")
+            Text("Player HP: \(player.health)/\(player.maxHealth)")
 
-                VStack { Spacer() }
-                    .frame(maxWidth: 15)
-                    .background(
-                        Image("DividerUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        )
-                    )
-
+            // MARK: Weapon Select Mode
+            if selectingWeapon {
                 VStack {
-                    if let enemy = enemy {
-                        Text(enemy.name)
-                        Text("HP: \(enemy.health)/\(enemy.maxHealth)")
-                    } else {
-                        Text("Spawning enemy...")
-                    }
+                    Text("Select Weapon")
 
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .background(Color.gray)
-
-                VStack { Spacer() }
-                    .frame(maxWidth: 15)
-                    .background(
-                        Image("DividerUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        )
-                    )
-            }
-
-            // BOTTOM CONTROLS
-            HStack {
-
-                VStack {
-
-                    // PLAYER HEALTH
-                    HStack {
-                        Text("Health: ").bold()
-                        Spacer()
-                        Healthbar(health: player.health, maxHealth: player.maxHealth)
-                    }
-                    .padding(3)
-                    .background(
-                        Image("DividerUI").resizable(
-                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                            resizingMode: .tile
-                        )
-                    )
-
-                    // ATTACK
-                    HStack {
-                        Button("Attack") {
-
-                            guard var enemy else { return }
-
-                            let result = BattleController.performTurn(
-                                player: &player,
-                                weaponIndex: 0,
-                                enemy: &enemy
-                            )
-
-                            self.enemy = enemy
-
-                            if result.enemyDied {
-                                self.enemy = EnemyGen.generateEnemy(
-                                    context: context,
-                                    difficulty: player.difficulty
+                    ForEach(player.weapons.indices, id: \.self) { index in
+                        Button {
+                            selectedWeaponIndex = index
+                            selectingWeapon = false
+                            resolveAttack()
+                        } label: {
+                            Text(player.weapons[index].baseName)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    Image("ButtonUI")
+                                        .resizable(
+                                            capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+                                            resizingMode: .tile
+                                        )
                                 )
-                            }
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            Image("ButtonUI").resizable(
-                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                resizingMode: .tile
-                            )
-                        )
                     }
 
-                    // DEFEND + RUN
-                    HStack {
+                    Button("Cancel") {
+                        selectingWeapon = false
+                    }
+                }
+                .disabled(isProcessingTurn)
+            }
 
-                        Button("Defend") {
-                            // future logic
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            Image("ButtonUI").resizable(
-                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                resizingMode: .tile
-                            )
-                        )
+            // MARK: Main Controls
+            if !selectingWeapon {
+                Button("Attack") {
+                    selectingWeapon = true
+                }
+                .disabled(isProcessingTurn)
 
-                        Button("Run") {
+                Button("Defend") {
+                    // optional later
+                }
+                .disabled(isProcessingTurn)
+
+                Button("Run") {
+                    Return()
+                }
+                .disabled(isProcessingTurn)
+            }
+        }
+
+        // MARK: End Screen
+        .overlay {
+            if battleEnded {
+                VStack {
+                    if didWin {
+                        Text("Victory")
+
+                        Button("Claim Rewards") {
+                            player.money += 10
                             Return()
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            Image("ButtonUI").resizable(
-                                capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                                resizingMode: .tile
-                            )
-                        )
+                    } else {
+                        Text("Defeat")
+
+                        Button("Return") {
+                            Return()
+                        }
                     }
                 }
-
-                Spacer()
+                .padding()
+                .background(Color.black.opacity(0.8))
             }
-            .frame(height: 150)
-            .padding()
-            .background(
-                Image("MenuUI").resizable(
-                    capInsets: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
-                    resizingMode: .tile
-                )
-            )
         }
-        .ignoresSafeArea(edges: .all)
-        .onAppear {
-            enemy = EnemyGen.generateEnemy(
-                context: context,
-                difficulty: player.difficulty
+    }
+
+    // MARK: Combat Logic
+    private func resolveAttack() {
+        guard let index = selectedWeaponIndex else { return }
+        guard !isProcessingTurn else { return }
+
+        isProcessingTurn = true
+
+        // Player attack
+        let result = BattleController.performTurn(
+            player: &player,
+            weaponIndex: index,
+            enemy: &enemy
+        )
+
+        // Enemy hit animation
+        enemyShake = true
+        enemyFlash = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            enemyShake = false
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            enemyFlash = false
+        }
+
+        // End checks
+        if result.enemyDied {
+            battleEnded = true
+            didWin = true
+            isProcessingTurn = false
+            return
+        }
+
+        if result.playerDied {
+            battleEnded = true
+            didWin = false
+            isProcessingTurn = false
+            return
+        }
+
+        // Enemy turn delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+
+            let playerDied = player.takeDamage(
+                amount: enemy.attack + enemy.weapon.baseAttack
             )
+
+            if playerDied {
+                battleEnded = true
+                didWin = false
+            }
+
+            isProcessingTurn = false
         }
     }
 }
