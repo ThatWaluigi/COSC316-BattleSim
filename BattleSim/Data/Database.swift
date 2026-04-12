@@ -5,6 +5,7 @@ class Enemy {
     var name: String
     var maxHP: Int
     var timesEncountered: Int
+    var timesKilled: Int
 
     init(name: String, maxHP: Int) {
         self.name = name

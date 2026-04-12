@@ -10,7 +10,8 @@ import SwiftUI
 struct BattleView: View {
 
     var Return: () -> Void
-    @State private var ActionState: PlayerActionState = .main
+
+    @State private var controller = BattleController()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -51,7 +52,7 @@ struct BattleView: View {
 
             // BOTTOM BAR
             HStack {
-                switch ActionState {
+                switch controller.state {
                 case .main:
                     ActionView(Return: Return, actionState: $ActionState)
                 case .attack:
@@ -70,9 +71,4 @@ struct BattleView: View {
         }
         .ignoresSafeArea(edges: .all)
     }
-}
-
-// Battle > Player UI State
-enum PlayerActionState {
-    case main, attack, victory, defeat
 }

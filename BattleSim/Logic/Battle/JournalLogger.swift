@@ -1,11 +1,5 @@
-import SwiftUI
-import SwiftData
-
 struct JournalLogger {
-    @Environment(\.modelContext) var context
-    @Query var enemies: [Enemy]
-
-    func recordEncounter(prefab: PrefabEnemy) {
+    func recordEncounter(prefab: PrefabEnemy, context: ModelContext, enemies: [Enemy]) {
         if let existing = enemies.first(where: { $0.name == prefab.name }) {
             existing.timesEncountered += 1
         } else {

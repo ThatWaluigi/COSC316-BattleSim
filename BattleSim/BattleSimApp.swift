@@ -14,5 +14,6 @@ struct BattleSimApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [Enemy.self, Player.self])
     }
 }

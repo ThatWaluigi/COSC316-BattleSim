@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct ActionView: View{
-    var Return: () -> Void
-    @Binding var actionState: PlayerActionState
+
+    var onAttack: () -> Void
+    var onRun: () -> Void
     
     var body: some View {
         VStack {
             HStack {
                 Button("Attack") { 
-                    actionState = .attack
+                    onAttack()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -28,7 +29,7 @@ struct ActionView: View{
                 )
 
                 Button("Run") {
-                    Return()
+                    onRun()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
