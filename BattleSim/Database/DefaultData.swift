@@ -3,10 +3,10 @@ import SwiftData
 struct DataDefaults{
     static func seedDatabase(context: ModelContext) {
 
-        let monsters = (try? context.fetch(FetchDescriptor<Monsters>())) ?? []
-        let weapons = (try? context.fetch(FetchDescriptor<Weapons>())) ?? []
+        let monstersList = (try? context.fetch(FetchDescriptor<Monsters>())) ?? []
+        let weaponsList = (try? context.fetch(FetchDescriptor<Weapons>())) ?? []
 
-        guard monsters.isEmpty && weapons.isEmpty else { return }
+        guard monstersList.isEmpty && weaponsList.isEmpty else { return }
 
         // insert data...
 
