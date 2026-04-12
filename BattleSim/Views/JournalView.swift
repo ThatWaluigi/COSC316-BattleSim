@@ -10,9 +10,42 @@ import SwiftUI
 struct JournalView: View {
     var Return: () -> Void
 
+    @Query var enemies: [Enemy]
     var body: some View {
-        Button("Back") {
-            Return()
+        VStack {
+            List {
+                ForEach(Prefabs.allEnemies, id: \.name) { prefab in
+                    
+                    if let found = enemies.first(where: { $0.name == prefab.name }) {
+                        
+                        // KNOWN
+                        VStack(alignment: .leading) {
+                            Text(found.name)
+                            Text("HP: \(found.maxHP)")
+                                .font(.caption)
+                            Text("Seen: \(found.timesEncountered)x")
+                                .font(.caption2)
+                        }
+                        
+                    } else {
+                        
+                        // UNKNOWN
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.black)
+                                .frame(height: 50)
+                            
+                            Text("?")
+                                .foregroundColor(.white)
+                                .font(.title)
+                        }
+                    }
+                }
+            }
+
+            Button("Back") {
+                Return()
+            }
         }
     }
 }
