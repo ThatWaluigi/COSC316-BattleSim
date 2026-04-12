@@ -16,8 +16,8 @@ class BattleEnemy: ObservableObject{
     }
 
     func TakeDamage(amount:Int) -> Bool{
-        curhp = max(curhp - amount, 0)
+        curHp = max(curHp - amount, 0)
 
-        return hp <= 0
+        return curHp <= 0
     }
 }

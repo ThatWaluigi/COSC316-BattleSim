@@ -6,7 +6,7 @@ class BattleController: ObservableObject {
     @Published var enemy: BattleEnemy?
     @Published var state: PlayerActionState = .main
 
-    var player: Player
+    private var player: Player?
 
     func startBattle(with prefab: PrefabEnemy) {
         enemy = BattleEnemy(
