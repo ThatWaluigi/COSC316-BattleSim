@@ -57,6 +57,6 @@ class PlayerWeapon {
     }
 
     var rarity: WeaponRarity{
-        WeaponRarity(rawValue: rarityStr)
+        WeaponRarity(rawValue: rarityStr)!
     }
 }

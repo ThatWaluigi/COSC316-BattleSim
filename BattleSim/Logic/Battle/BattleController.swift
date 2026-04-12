@@ -26,9 +26,9 @@ class BattleController: ObservableObject {
     }
 
     func PlayerAttack(weapon: PrefabWeapon){
-        guard let enemy = enemy, let player = player else { return }
+        guard let enemy = enemy else { return }
 
-        if let Died = enemy.TakeDamage(weapon.baseAttack){
+        if enemy.TakeDamage(amount: weapon.baseDamage){
             state = .victory
         }
         else{
@@ -39,7 +39,7 @@ class BattleController: ObservableObject {
     func EnemyTurn(){
         guard let enemy = enemy, let player = player else { return }
 
-        if let Died = player.TakeDamage(enemy.weapon.baseAttack){
+        if player.TakeDamage(amount: enemy.weapon.baseDamage){
             state = .defeat
         }
         else{

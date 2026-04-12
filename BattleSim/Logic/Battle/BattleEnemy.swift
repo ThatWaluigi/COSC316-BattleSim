@@ -1,3 +1,5 @@
+import Combine
+
 @MainActor
 class BattleEnemy: ObservableObject{
     var name: String

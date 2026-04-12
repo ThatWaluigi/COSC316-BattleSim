@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BattleView: View {
 
@@ -63,8 +64,8 @@ struct BattleView: View {
                 case .attack:
                     WeaponView(
                         Back: {controller.ChangeState(state: .main)},
-                        playerAttack: {weapon in
-                            controller.PlayerAttack(weapon: weapon)    
+                        playerAttack: { weapon in
+                            controller.PlayerAttack(weapon: weapon)
                         },
                         weapons: [] // replace when adding player
                     )
@@ -81,10 +82,10 @@ struct BattleView: View {
             )
         }
         .ignoresSafeArea(edges: .all)
-    }
-    .onAppear {
-        if let player = players.first {
-            controller.AssignPlayer(player)
+        .onAppear {
+            if let player = players.first {
+                controller.AssignPlayer(player: player)
+            }
         }
     }
 }
