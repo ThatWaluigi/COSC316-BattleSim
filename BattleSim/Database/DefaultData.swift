@@ -3,12 +3,12 @@ import SwiftData
 struct DataDefaults{
     static func seedDatabase(context: ModelContext) {
 
-        // Count existing records using FetchDescriptor
-        let monsterCount = (try? context.fetchCount(FetchDescriptor<Monsters>())) ?? 0
-        let weaponCount = (try? context.fetchCount(FetchDescriptor<Weapons>())) ?? 0
+        let monsters = (try? context.fetch(FetchDescriptor<Monsters>())) ?? []
+        let weapons = (try? context.fetch(FetchDescriptor<Weapons>())) ?? []
 
-        // Only seed if both are empty
-        guard monsterCount <= 0 && weaponCount <= 0 else { return }
+        guard monsters.isEmpty && weapons.isEmpty else { return }
+
+        // insert data...
 
         let weapons: [Weapons] = [
             // MARK: Common (14)
