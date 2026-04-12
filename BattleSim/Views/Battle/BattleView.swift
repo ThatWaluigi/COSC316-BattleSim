@@ -1,5 +1,5 @@
 //
-//  NewBattleView.swift
+//  BattleView.swift
 //  BattleSim
 //
 //  Created by Quintin Dennison on 2026-04-11.
@@ -7,27 +7,17 @@
 
 import SwiftUI
 
-//
-//  BattleView.swift
-//  BattleSim
-//
-
-import SwiftUI
-
 struct BattleView: View {
 
     var Return: () -> Void
-
-    var ActionState: PlayerActionState = .main
-    enum PlayerActionState {
-        case main, attack, victory, defeat
-    }
+    @State private var ActionState: PlayerActionState = .main
 
     var body: some View {
         VStack(spacing: 0) {
 
             // TOP BAR
             HStack {
+                // Health Bar and Money View
                 Spacer()
             }
             .frame(height: 50)
@@ -39,34 +29,31 @@ struct BattleView: View {
             // CENTER AREA
             HStack(spacing: 0) {
 
-                VStack {
-                    Spacer()
-                }
-                .frame(maxWidth: 25)
-                .background(
-                    UIHelper.GetBackground(type: .DividerUI)
-                )
+                Color.clear
+                    .frame(maxWidth: 25)
+                    .background(
+                        UIHelper.GetBackground(type: .DividerUI)
+                    )
 
                 VStack {
+                    // Enemy Visualizer View
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.gray)
 
-                VStack {
-                    Spacer()
-                }
-                .frame(maxWidth: 25)
-                .background(
-                    UIHelper.GetBackground(type: .DividerUI)
-                )
+                Color.clear
+                    .frame(maxWidth: 25)
+                    .background(
+                        UIHelper.GetBackground(type: .DividerUI)
+                    )
             }
 
             // BOTTOM BAR
             HStack {
                 switch ActionState {
                 case .main:
-                    ActionView(Return: Return)
+                    ActionView(Return: Return, actionState: $ActionState)
                 case .attack:
                     Text("Hit")
                 case .victory:
@@ -83,4 +70,9 @@ struct BattleView: View {
         }
         .ignoresSafeArea(edges: .all)
     }
+}
+
+// Battle > Player UI State
+enum PlayerActionState {
+    case main, attack, victory, defeat
 }
