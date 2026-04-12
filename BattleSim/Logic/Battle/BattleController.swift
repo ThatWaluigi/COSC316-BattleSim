@@ -10,7 +10,8 @@ class BattleController: ObservableObject {
         enemy = BattleEnemy(
             name: prefab.name,
             maxHp: prefab.maxHp,
-            imageName: prefab.imageName
+            imageName: prefab.imageName,
+            weapon: PrefabWeapon(name: "Sword", damage: 10, rarity: .common) //temp
         )
     }
     

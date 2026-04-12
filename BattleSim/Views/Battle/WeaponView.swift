@@ -10,8 +10,8 @@ struct WeaponView: View{
     var body: some View {
         VStack {
             HStack {
-                ForEach(weapons, id: \.self){ slot in
-                    Button("\(weapons.name)"){
+                ForEach(weapons, id: \.name){ slot in
+                    Button("\(slot.name)"){
                         playerAttack(slot)
                     }
                     .padding()
@@ -20,6 +20,8 @@ struct WeaponView: View{
                     )
                 }
             }
+            
+            Spacer()
 
             Button("Go Back"){
                 Back()

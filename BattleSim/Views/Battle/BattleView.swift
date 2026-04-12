@@ -62,7 +62,7 @@ struct BattleView: View {
                     WeaponView(
                         Back: {controller.ChangeState(state: .main)},
                         playerAttack: {weapon in
-                            controller.PlayerAttack(with: weapon)    
+                            controller.PlayerAttack(weapon: weapon)    
                         },
                         weapons: [] // replace when adding player
                     )
