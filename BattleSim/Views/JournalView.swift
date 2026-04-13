@@ -28,7 +28,8 @@ struct JournalView: View {
                                 .font(.caption2)
                         }
                         
-                    } else {
+                    }
+                    else {
                         
                         // UNKNOWN
                         ZStack {

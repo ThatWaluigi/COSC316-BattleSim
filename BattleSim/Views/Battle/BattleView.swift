@@ -10,6 +10,7 @@ import SwiftData
 
 struct BattleView: View {
 
+    var context: ModelContext
     var Return: () -> Void
 
     @StateObject private var controller = BattleController()
@@ -90,7 +91,7 @@ struct BattleView: View {
                 controller.AssignPlayer(player: player)
             }
 
-            controller.startRandomBattle()
+            controller.startRandomBattle(context: context)
         }
     }
 }

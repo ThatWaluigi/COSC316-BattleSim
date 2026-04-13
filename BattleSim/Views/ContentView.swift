@@ -27,7 +27,7 @@ struct ContentView: View {
                     )
                     
                 case .battle:
-                    BattleView(Return: { screen = .village })
+                    BattleView(context: context, Return: { screen = .village })
                     
                 case .journal:
                     JournalView(Return: { screen = .village })

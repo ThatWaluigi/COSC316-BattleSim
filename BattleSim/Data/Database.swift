@@ -5,12 +5,14 @@ import SwiftData
 class Enemy {
     var name: String
     var maxHP: Int
+    var image: String
     var timesEncountered: Int
     var timesKilled: Int
 
-    init(name: String, maxHP: Int) {
+    init(name: String, maxHP: Int, image: String) {
         self.name = name
         self.maxHP = maxHP
+        self.image = image
         self.timesEncountered = 0
         self.timesKilled = 0
     }

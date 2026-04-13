@@ -1,4 +1,5 @@
 import Combine
+import SwiftData
 
 @MainActor
 class BattleController: ObservableObject {
@@ -8,8 +9,10 @@ class BattleController: ObservableObject {
 
     private var player: Player?
 
-    func startRandomBattle() {
+    func startRandomBattle(context: ModelContext) {
         let prefab = Prefabs.randomEnemy()
+        
+        JournalLogger.recordEncounter(enemy: prefab, context: context)
 
         enemy = BattleEnemy(
             name: prefab.name,
