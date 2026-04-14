@@ -11,6 +11,7 @@ class BattleController: ObservableObject {
     @Published var loot: LootReward?
 
     private var player: Player?
+    private var difficulty: Float?
 
     func startRandomBattle(context:ModelContext) {
         let prefab = Prefabs.randomEnemy()
@@ -25,6 +26,7 @@ class BattleController: ObservableObject {
 
     func AssignPlayer(player: Player){
         self.player = player
+        self.difficulty = player.difficulty
     }
 
     func GetPlayerWeapons() -> [PlayerWeapon]{
