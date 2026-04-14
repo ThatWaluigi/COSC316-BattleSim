@@ -13,21 +13,20 @@ struct WinView: View{
     
     var body: some View {
         VStack(spacing: 12) {
-            HStack {
-                Text("- Victory! -").bold().font(.title)
+            Text("- Victory! -").bold().font(.title)
+                .frame(maxWidth: .infinity, alignment: .center)
+
+            Text("\(controller.enemy!.name) has been defeated.")
+                .frame(maxWidth: .infinity, alignment: .center)
+
+            VStack(spacing: 8){
+                Text("- Rewards -").bold()
                     .frame(maxWidth: .infinity, alignment: .center)
 
-                Text("\(controller.enemy!.name) has been defeated.")
-                    .frame(maxWidth: .infinity, alignment: .center)
-
-                VStack(spacing: 8){
-
-                    Text("- Rewards -").bold()
-                        .frame(maxWidth: .infinity, alignment: .center)
-
+                if let loot = controller.loot {
                     Text("Gold : \(controller.loot!.gold)").foregroundStyle(.yellow)
 
-                    if let weapon = controller.loot!.weapon {
+                    if let weapon = loot.weapon {
                         switch state {
                             case .normal: 
                                 Text("Huh? That weapon looks good.")
@@ -72,6 +71,7 @@ struct WinView: View{
             Spacer()
 
             Button("Return Home") {
+                controller.collectGold()
                 Return()
             }
             .padding()

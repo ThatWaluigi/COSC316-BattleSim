@@ -77,9 +77,9 @@ class BattleController: ObservableObject {
 
         let weaponDrop: PlayerWeapon? = (dropChance < 0.25) ? 
         PlayerWeapon(
-            name: Prefabs.randomWeapon().name,
-            damage: Prefabs.randomWeapon().baseDamage,
-            rarity: Prefabs.randomWeapon().rarity
+            name: enemy.weapon.name,
+            damage: enemy.weapon.baseDamage,
+            rarity: enemy.weapon.rarity
         )
         : nil
 
@@ -94,6 +94,11 @@ class BattleController: ObservableObject {
     func replaceWeapon(with weapon: PlayerWeapon, at index: Int) {
         guard let player else { return }
         player.addWeapon(weapon: weapon, slot: index)
+    }
+
+    func collectGold() {
+        guard let player, let loot else { return }
+        player.addGold(gold: loot.gold)
     }
     
     func HealDefeatedPlayer(){
