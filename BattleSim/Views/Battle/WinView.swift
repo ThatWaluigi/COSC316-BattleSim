@@ -25,16 +25,16 @@ struct WinView: View{
                     Text("- Rewards -").bold()
                         .frame(maxWidth: .infinity, alignment: .center)
 
-                    Text("Gold : \(controller.loot.gold)").foregroundStyle(.yellow)
+                    Text("Gold : \(controller.loot!.gold)").foregroundStyle(.yellow)
 
-                    if let weapon = controller.loot.weapon {
+                    if let weapon = controller.loot!.weapon {
                         switch state {
                             case .normal: 
                                 Text("Huh? That weapon looks good.")
 
                                 Text("\(weapon.name) : (\(weapon.baseDamage))")
                                 Button("Collect?"){
-                                    if controller.player.inventoryFull(){
+                                    if controller.CheckPlayerInventory(){
                                         state = .replace
                                     }
                                     else
@@ -61,6 +61,7 @@ struct WinView: View{
                                         .padding()
                                         .frame(maxWidth: .infinity)
                                         .background(UIHelper.GetBackground(type: .ButtonUI))
+
                                 }
                             }
                         }
@@ -71,15 +72,13 @@ struct WinView: View{
             Spacer()
 
             Button("Return Home") {
-                
-
                 Return()
             }
             .padding()
             .frame(maxWidth: .infinity)
             .background(
                 UIHelper.GetBackground(type: .ButtonUI)
-            }
+            )
         }
     }
 }

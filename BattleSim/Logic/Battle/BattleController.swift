@@ -87,7 +87,7 @@ class BattleController: ObservableObject {
     }
 
     func collectLootWeapon() {
-        guard let player, let weapon = loot.weapon else { return }
+        guard let player, let weapon = loot!.weapon else { return }
         player.addWeapon(weapon: weapon)
     }
 
@@ -98,6 +98,10 @@ class BattleController: ObservableObject {
     
     func HealDefeatedPlayer(){
         player!.Heal(amount: player!.maxHP / 6)
+    }
+    
+    func CheckPlayerInventory() -> Bool{
+        return player!.inventoryFull()
     }
 }
 
