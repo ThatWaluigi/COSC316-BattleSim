@@ -8,6 +8,7 @@ class BattleController: ObservableObject {
     @Published var lastEnemyName: String?
 
     @Published var state: PlayerActionState = .main
+    @Published var loot: LootReward?
 
     private var player: Player?
 
@@ -44,6 +45,7 @@ class BattleController: ObservableObject {
                 context: context
             )
 
+            loot = generateLoot()
             state = .victory
         }
         else{
@@ -60,6 +62,28 @@ class BattleController: ObservableObject {
         else{
             state = .main // Start Loop Again
         }
+    }
+
+
+    func generateLoot() -> LootReward {
+        guard let enemy = enemy else {
+            eturn LootReward(gold: 0, weapon: nil)
+        }
+
+        let baseGold = Int(enemy.maxHP / 6) + Int.random(in: 2...7)
+
+        // small chance to drop weapon
+        let dropChance = Double.random(in: 0..<1)
+
+        let weaponDrop: PlayerWeapon? = (dropChance < 0.25) ? 
+        PlayerWeapon(
+            name: Prefabs.randomWeapon().name,
+            damage: Prefabs.randomWeapon().baseDamage,
+            rarity: Prefabs.randomWeapon().rarity
+        )
+        : nil
+
+        return LootReward(gold: baseGold, weapon: weaponDrop)
     }
 }
 

@@ -40,6 +40,29 @@ class Player {
     func Heal(amount:Int){
         hp = min(hp + amount, maxHP)
     }
+
+    func addGold(gold: Int){
+        self.gold += gold
+    }
+
+    func addWeapon(weapon: PlayerWeapon, slot: Int? = nil){
+        let maxSlots = 3
+
+        // If slot provided, replace it
+        if let slot = slot, slot >= 0, slot < maxSlots {
+            inventory[slot] = weapon
+            return
+        }
+        
+        if inventory.count < maxSlots {
+            inventory.append(weapon)
+            return
+        }
+    }
+
+    func inventoryFull() -> Bool{
+        return inventory.count >= 3
+    }
 }
 
 @Model

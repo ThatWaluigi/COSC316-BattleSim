@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     var Battle: () -> Void
     var Journal: () -> Void
+    var Market: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -45,15 +46,28 @@ struct HomeView: View {
                     .background(
                         UIHelper.GetBackground(type: .ButtonUI)
                     )
-                    
-                    Button("Journal"){
-                        Journal()
+
+                    HStack{ 
+                        Button("Journal"){
+                            Journal()
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            UIHelper.GetBackground(type: .ButtonUI)
+                        )
+
+                        Spacer()
+
+                        Button("Upgrades"){
+                            Market()
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            UIHelper.GetBackground(type: .ButtonUI)
+                        )
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        UIHelper.GetBackground(type: .ButtonUI)
-                    )
                 }
             }
             .frame(height: 180)

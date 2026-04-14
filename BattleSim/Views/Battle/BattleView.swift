@@ -79,7 +79,7 @@ struct BattleView: View {
                 case .victory:
                     WinView(Return: {Return()}, enemyName: controller.enemy!.name)
                 case .defeat:
-                    Text("Lose")
+                    LoseView(Return: {Return()})
                 }
             }
             .frame(height: 180)

@@ -4,14 +4,21 @@ struct WinView: View{
 
     var Return: () -> Void
     var enemyName: String
+    var reward: LootReward
     
     var body: some View {
         VStack {
             HStack {
-                Text("You have defeated \(enemyName)")
+                Text("- Victory! -").bold()
+                    .frame(maxWidth: .infinity, alignment: .center)
 
-                //Show Rewards
-                // Allow gaining enemy weapon if chance hit
+                Text("\(enemyName) has been defeated.")
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                Text("- Rewards -").bold()
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                Text("Gold : \(LootReward.gold)").foregroundStyle(.yellow)
             }
 
             HStack {

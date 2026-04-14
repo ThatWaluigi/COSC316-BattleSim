@@ -26,7 +26,7 @@ struct PlayerHeader: View {
                 
                 
                 HStack{
-                    Text("Money:").bold(true)
+                    Text("Gold:").bold(true)
                     Text("\(player.gold)").foregroundStyle(.yellow)
                 }
             }

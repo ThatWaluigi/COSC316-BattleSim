@@ -12,7 +12,7 @@ struct ContentView: View {
 
     @State var screen: Screen = .village
     enum Screen {
-        case village, battle, journal
+        case village, battle, journal, market
     }
 
     @Environment(\.modelContext) private var context
@@ -31,6 +31,9 @@ struct ContentView: View {
                     
                 case .journal:
                     JournalView(Return: { screen = .village })
+
+                case .market:
+                    MarketView(Return: { screen = .village })
             }
         }
         .onAppear{
