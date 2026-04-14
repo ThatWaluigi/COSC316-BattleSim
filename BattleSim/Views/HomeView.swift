@@ -40,6 +40,20 @@ struct HomeView: View {
                     Button("Fight"){
                         Battle()
                     }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        UIHelper.GetBackground(type: .ButtonUI)
+                    )
+                    
+                    Button("Journal"){
+                        Journal()
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        UIHelper.GetBackground(type: .ButtonUI)
+                    )
                 }
             }
             .frame(height: 180)

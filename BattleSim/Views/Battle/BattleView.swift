@@ -16,6 +16,7 @@ struct BattleView: View {
     @StateObject private var controller = BattleController()
 
     @Query var players: [Player]
+    @Query var enemies: [Enemy]
 
     var body: some View {
         VStack(spacing: 0) {
@@ -91,7 +92,7 @@ struct BattleView: View {
                 controller.AssignPlayer(player: player)
             }
 
-            controller.startRandomBattle(context: context)
+            controller.startRandomBattle(context: context, enemies: enemies)
         }
     }
 }

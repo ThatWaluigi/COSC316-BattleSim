@@ -9,10 +9,11 @@ class BattleController: ObservableObject {
 
     private var player: Player?
 
-    func startRandomBattle(context: ModelContext) {
+    func startRandomBattle(context:ModelContext ,enemies: [Enemy]) {
         let prefab = Prefabs.randomEnemy()
         
-        JournalLogger.recordEncounter(enemy: prefab, context: context)
+        JournalLogger.recordEncounter(enemy: prefab, context: context,
+                                      enemies: enemies)
 
         enemy = BattleEnemy(
             name: prefab.name,
