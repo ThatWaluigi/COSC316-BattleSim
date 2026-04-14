@@ -72,6 +72,7 @@ class BattleController: ObservableObject {
         }
 
         let baseGold = Int(enemy.maxHp / 6) + Int.random(in: 2...7)
+        let gainedGold = Int(Float(baseGold) * player.goldMulti)
 
         // small chance to drop weapon
         let dropChance = Double.random(in: 0..<1)

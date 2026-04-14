@@ -18,19 +18,40 @@ class Enemy {
 @Model
 class Player {
     var hp: Int
-    var maxHP: Int
+    var baseMaxHP: Int
     var gold: Int
     var difficulty: Float
+
+    //Upgrades
+    var goldMulti: Float
+    var healthUp: Int
 
     @Relationship
     var inventory: [PlayerWeapon]
 
     init(difficulty: Float = 0.5, hp: Int = 50, maxHP: Int = 50, gold: Int = 0, inv: [PlayerWeapon] = []) {
         self.hp = hp
-        self.maxHP = maxHP
+        self.baseMaxHP = maxHP
         self.gold = gold
+        self.goldMulti = 1.0
         self.difficulty = difficulty
         self.inventory = inv
+    }
+
+    var maxHP: Int {
+        baseMaxHP + (healthUp * 5)
+    }
+
+    var fullHealCost: Int {
+        10 + Int(maxHP / 3)
+    }
+
+    var healthUpgradeCost: Int {
+        20 + (healthUp * 13)
+    }
+
+    var goldUpgradeCost: Int {
+        25 + Int((goldMulti - 1.0) * 150)
     }
 
     func TakeDamage(amount:Int) -> Bool{
@@ -64,6 +85,27 @@ class Player {
 
     func inventoryFull() -> Bool{
         return inventory.count >= 3
+    }
+
+    func FullHeal() {
+        guard gold >= fullHealCost else { return }
+
+        gold -= fullHealCost
+        healthUp += 1
+    }
+
+    func UpgradeHealth() {
+        guard gold >= healthUpgradeCost else { return }
+
+        gold -= healthUpgradeCost
+        healthUp += 1
+    }
+
+    func UpgradeGold() {
+        guard gold >= goldUpgradeCost else { return }
+
+        gold -= goldUpgradeCost
+        goldMulti += 0.1
     }
 }
 

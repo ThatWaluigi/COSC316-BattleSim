@@ -3,6 +3,8 @@ import SwiftUI
 struct MarketView: View {
 
     var Return: () -> Void
+    var player: Player
+    var context: ModelContext
 
     var body: some View {
         VStack(spacing: 0) {
@@ -16,14 +18,35 @@ struct MarketView: View {
             )
 
             // CENTER AREA
-            HStack(spacing: 0) {
+            HStack(spacing: 4) {
                 VStack {
                     Spacer()
 
-                    //Upgrades
-                    //  MaxHealth
-                    //  HealtoFull
+                    Group{
+                        Text("Full Heal (100%)")
+                        Spacer()
+                        Button("Heal? : \(player.fullHealCost) Gold"){
+                            player.FullHeal()
+                        }
+                    }
 
+                    Group{
+                        Text("Max Health (+5)")
+                        Spacer()
+                        Button("Upgrade? : \(player.healthUpgradeCost) Gold"){
+                            player.UpgradeHealth()
+                        }
+                    }
+
+                    Group{
+                        Text("Increase Gold (+10%)")
+                        Spacer()
+                        Button("Upgrade?: \(player.goldUpgradeCost) Gold"){
+                            player.UpgradeGold()
+                        }
+                    }
+
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.gray)
