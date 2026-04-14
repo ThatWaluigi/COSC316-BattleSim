@@ -75,7 +75,7 @@ class BattleController: ObservableObject {
         // small chance to drop weapon
         let dropChance = Double.random(in: 0..<1)
 
-        let weaponDrop: PlayerWeapon? = (dropChance < 0.25) ? 
+        let weaponDrop: PlayerWeapon? = (dropChance < 0.75) ? 
         PlayerWeapon(
             name: enemy.weapon.name,
             damage: enemy.weapon.baseDamage,

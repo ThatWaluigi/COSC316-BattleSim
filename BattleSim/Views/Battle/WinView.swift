@@ -12,15 +12,12 @@ struct WinView: View{
     @State private var state: WeaponState = .normal
     
     var body: some View {
-        VStack(spacing: 12) {
-            Text("- Victory! -").bold().font(.title)
+        VStack() {
+            Text("Victory!").bold().font(.title)
                 .frame(maxWidth: .infinity, alignment: .center)
 
-            Text("\(controller.enemy!.name) has been defeated.")
-                .frame(maxWidth: .infinity, alignment: .center)
-
-            VStack(spacing: 8){
-                Text("- Rewards -").bold()
+            VStack(){
+                Text("- Rewards -")
                     .frame(maxWidth: .infinity, alignment: .center)
 
                 if let loot = controller.loot {
@@ -28,24 +25,25 @@ struct WinView: View{
 
                     if let weapon = loot.weapon {
                         switch state {
-                            case .normal: 
+                            case .normal:
                                 Text("Huh? That weapon looks good.")
-
-                                Text("\(weapon.name) : (\(weapon.baseDamage))")
-                                Button("Collect?"){
-                                    if controller.CheckPlayerInventory(){
-                                        state = .replace
+                                HStack{
+                                    Text("\(weapon.name) : (\(weapon.baseDamage))")
+                                    Button("Collect?"){
+                                        if controller.CheckPlayerInventory(){
+                                            state = .replace
+                                        }
+                                        else
+                                        {
+                                            state = .pickup
+                                        }
                                     }
-                                    else
-                                    {
-                                        state = .pickup
-                                    }
+                                    .padding(4)
+                                    .frame(maxWidth: .infinity)
+                                    .background(
+                                        UIHelper.GetBackground(type: .ButtonUI)
+                                    )
                                 }
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(
-                                    UIHelper.GetBackground(type: .ButtonUI)
-                                )
                             case .pickup:
                                 Text("Yeah! This will do good in my hands!")
 

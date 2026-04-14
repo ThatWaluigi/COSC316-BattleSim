@@ -78,7 +78,7 @@ struct BattleView: View {
                     )
                 case .victory:
                     WinView(Return: {Return()},
-                        controller: controller
+                            controller: controller
                     )
                 case .defeat:
                     LoseView(Return: {Return()},

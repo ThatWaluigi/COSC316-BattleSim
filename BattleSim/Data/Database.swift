@@ -24,7 +24,7 @@ class Player {
     @Relationship
     var inventory: [PlayerWeapon]
 
-    init(hp: Int = 300, maxHP: Int = 25, gold: Int = 0, inv: [PlayerWeapon] = []) {
+    init(hp: Int = 1000, maxHP: Int = 25, gold: Int = 0, inv: [PlayerWeapon] = []) {
         self.hp = hp
         self.maxHP = maxHP
         self.gold = gold
