@@ -93,9 +93,9 @@ extension Prefabs {
         // simple weighting: more common items appear more often
         let weighted = pool.flatMap { weapon in
             switch weapon.rarity {
-            case .common: return Array(repeating: weapon, count: 9)
+            case .common: return Array(repeating: weapon, count: 12)
             case .uncommon: return Array(repeating: weapon, count: 5)
-            case .rare: return Array(repeating: weapon, count: 3)
+            case .rare: return Array(repeating: weapon, count: 2)
             case .legendary: return [weapon]
             }
         }
