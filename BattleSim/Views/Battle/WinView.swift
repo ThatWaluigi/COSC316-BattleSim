@@ -18,7 +18,7 @@ struct WinView: View{
                 Text("- Rewards -").bold()
                     .frame(maxWidth: .infinity, alignment: .center)
 
-                Text("Gold : \(LootReward.gold)").foregroundStyle(.yellow)
+                Text("Gold : \(reward.gold)").foregroundStyle(.yellow)
             }
 
             HStack {

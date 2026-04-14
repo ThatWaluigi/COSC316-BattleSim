@@ -23,7 +23,8 @@ struct ContentView: View {
             switch screen {
                 case .village:
                     HomeView(Battle: { screen = .battle },
-                            Journal: { screen = .journal }
+                            Journal: { screen = .journal },
+                             Market: { screen = .market}
                     )
                     
                 case .battle:

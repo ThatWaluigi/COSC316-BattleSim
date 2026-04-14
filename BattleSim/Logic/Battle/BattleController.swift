@@ -67,10 +67,10 @@ class BattleController: ObservableObject {
 
     func generateLoot() -> LootReward {
         guard let enemy = enemy else {
-            eturn LootReward(gold: 0, weapon: nil)
+            return LootReward(gold: 0, weapon: nil)
         }
 
-        let baseGold = Int(enemy.maxHP / 6) + Int.random(in: 2...7)
+        let baseGold = Int(enemy.maxHp / 6) + Int.random(in: 2...7)
 
         // small chance to drop weapon
         let dropChance = Double.random(in: 0..<1)
@@ -84,6 +84,10 @@ class BattleController: ObservableObject {
         : nil
 
         return LootReward(gold: baseGold, weapon: weaponDrop)
+    }
+    
+    func HealDefeatedPlayer(){
+        player!.Heal(amount: player!.maxHP / 6)
     }
 }
 

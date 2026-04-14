@@ -77,9 +77,16 @@ struct BattleView: View {
                         weapons: controller.GetPlayerWeapons()
                     )
                 case .victory:
-                    WinView(Return: {Return()}, enemyName: controller.enemy!.name)
+                    WinView(Return: {Return()},
+                            enemyName: controller.enemy!.name,
+                            reward: controller.loot!
+                    
+                    )
                 case .defeat:
-                    LoseView(Return: {Return()})
+                    LoseView(Return: {Return()},
+                             HealPlayer: { controller.HealDefeatedPlayer()},
+                             enemyName: controller.enemy!.name
+                    )
                 }
             }
             .frame(height: 180)
