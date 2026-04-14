@@ -4,12 +4,12 @@ struct LoseView: View{
 
     var Return: () -> Void
     var HealPlayer: () -> Void
-    var enemyName: String
+    var controller: BattleController
     
     var body: some View {
         VStack {
             HStack {
-                Text("You have defeated by \(enemyName)")
+                Text("You have defeated by \(controller.enemy!.name)")
             }
 
             HStack {

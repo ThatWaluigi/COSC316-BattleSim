@@ -19,7 +19,7 @@ struct PlayerHeader: View {
                     Spacer()
                     Healthbar(health: player.hp, maxHealth: player.maxHP)
                 }
-                            
+                
                 Spacer()
                 Text("|").foregroundStyle(Color(.brown))
                 Spacer()
@@ -34,9 +34,6 @@ struct PlayerHeader: View {
             .background(
                 UIHelper.GetBackground(type: .DividerUI)
             )
-        }
-        else{
-            Text("Loading...")
         }
     }
 }

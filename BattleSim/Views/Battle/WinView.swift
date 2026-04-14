@@ -45,8 +45,10 @@ struct WinView: View{
                                     )
                                 }
                             case .pickup:
-                                controller.collectLootWeapon()
                                 Text("Yeah! This will do good in my hands!")
+                                .onAppear(){
+                                    controller.collectLootWeapon()
+                                }
 
                             case .replace:
                                 Text("Hmm? maybe this is better than what I have.")
