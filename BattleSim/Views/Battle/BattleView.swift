@@ -71,13 +71,13 @@ struct BattleView: View {
                         playerAttack: { weapon in
                             controller.PlayerAttack(
                                 weapon: weapon,
-                                context: context,
+                                context: context
                             )
                         },
                         weapons: controller.GetPlayerWeapons()
                     )
                 case .victory:
-                    WinView(Return: {Return()}, enemyName: controller.enemy?.name)
+                    WinView(Return: {Return()}, enemyName: controller.enemy!.name)
                 case .defeat:
                     Text("Lose")
                 }

@@ -11,7 +11,6 @@ class BattleEnemy: ObservableObject{
     init(prefab: PrefabEnemy, weapon:PrefabWeapon){
         self.prefabUsed = prefab
         self.curHp = prefab.maxHp
-        self.imageName = prefab.imageName
         self.weapon = weapon
     }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EnemyView: View {
-    let enemy: BattleEnemy
+    @ObservedObject var enemy: BattleEnemy
 
     var body: some View {
         VStack {
