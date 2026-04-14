@@ -85,6 +85,16 @@ class BattleController: ObservableObject {
 
         return LootReward(gold: baseGold, weapon: weaponDrop)
     }
+
+    func collectLootWeapon() {
+        guard let player, let weapon = loot.weapon else { return }
+        player.addWeapon(weapon: weapon)
+    }
+
+    func replaceWeapon(with weapon: PlayerWeapon, at index: Int) {
+        guard let player else { return }
+        player.addWeapon(weapon: weapon, slot: index)
+    }
     
     func HealDefeatedPlayer(){
         player!.Heal(amount: player!.maxHP / 6)

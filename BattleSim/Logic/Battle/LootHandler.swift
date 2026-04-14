@@ -1,4 +1,4 @@
 struct LootReward {
-    let gold: Int
-    let weapon: PlayerWeapon?
+    var gold: Int
+    var weapon: PlayerWeapon?
 }

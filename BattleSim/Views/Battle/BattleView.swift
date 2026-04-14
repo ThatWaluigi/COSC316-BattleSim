@@ -78,9 +78,7 @@ struct BattleView: View {
                     )
                 case .victory:
                     WinView(Return: {Return()},
-                            enemyName: controller.enemy!.name,
-                            reward: controller.loot!
-                    
+                        controller: controller
                     )
                 case .defeat:
                     LoseView(Return: {Return()},
