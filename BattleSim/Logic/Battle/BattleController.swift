@@ -5,20 +5,19 @@ import SwiftData
 class BattleController: ObservableObject {
     
     @Published var enemy: BattleEnemy?
+    @Published var lastEnemyName: String?
+
     @Published var state: PlayerActionState = .main
 
     private var player: Player?
 
-    func startRandomBattle(context:ModelContext ,enemies: [Enemy]) {
+    func startRandomBattle(context:ModelContext) {
         let prefab = Prefabs.randomEnemy()
         
-        JournalLogger.recordEncounter(enemy: prefab, context: context,
-                                      enemies: enemies)
+        JournalLogger.recordEncounter(enemy: prefab, context: context)
 
         enemy = BattleEnemy(
-            name: prefab.name,
-            maxHp: prefab.maxHp,
-            imageName: prefab.imageName,
+            prefab: prefab,
             weapon: Prefabs.randomWeapon()
         )
     }
@@ -36,10 +35,15 @@ class BattleController: ObservableObject {
         self.state = state
     }
 
-    func PlayerAttack(weapon: PlayerWeapon){
+    func PlayerAttack(weapon: PlayerWeapon, context:ModelContext){
         guard let enemy = enemy else { return }
 
         if enemy.TakeDamage(amount: weapon.baseDamage){
+            JournalLogger.recordDeath(
+                enemy: enemy.prefabUsed,
+                context: context
+            )
+
             state = .victory
         }
         else{

@@ -16,7 +16,6 @@ struct BattleView: View {
     @StateObject private var controller = BattleController()
 
     @Query var players: [Player]
-    @Query var enemies: [Enemy]
 
     var body: some View {
         VStack(spacing: 0) {
@@ -43,7 +42,7 @@ struct BattleView: View {
 
                 VStack {
                     if let enemy = controller.enemy {
-                        EnemyView(enemy: controller.enemy!)
+                        EnemyView(enemy: enemy)
                     }
     
                     Spacer()
@@ -70,12 +69,15 @@ struct BattleView: View {
                     WeaponView(
                         Back: {controller.ChangeState(state: .main)},
                         playerAttack: { weapon in
-                            controller.PlayerAttack(weapon: weapon)
+                            controller.PlayerAttack(
+                                weapon: weapon,
+                                context: context,
+                            )
                         },
                         weapons: controller.GetPlayerWeapons()
                     )
                 case .victory:
-                    Text("Win")
+                    WinView(Return: {Return()}, enemyName: controller.enemy?.name)
                 case .defeat:
                     Text("Lose")
                 }
@@ -92,7 +94,7 @@ struct BattleView: View {
                 controller.AssignPlayer(player: player)
             }
 
-            controller.startRandomBattle(context: context, enemies: enemies)
+            controller.startRandomBattle(context: context)
         }
     }
 }

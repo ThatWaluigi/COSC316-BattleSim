@@ -2,20 +2,22 @@ import Combine
 
 @MainActor
 class BattleEnemy: ObservableObject{
-    var name: String
+    var prefabUsed: PrefabEnemy
+
     @Published var curHp: Int
-    var maxHp: Int
-    var imageName: String
 
     var weapon: PrefabWeapon
 
-    init(name:String, maxHp:Int, imageName:String, weapon:PrefabWeapon){
-        self.name = name
-        self.curHp = maxHp
-        self.maxHp = maxHp
-        self.imageName = imageName
+    init(prefab: PrefabEnemy, weapon:PrefabWeapon){
+        self.prefabUsed = prefab
+        self.curHp = prefab.maxHp
+        self.imageName = prefab.imageName
         self.weapon = weapon
     }
+
+    var name: String { prefabUsed.name }
+    var maxHp: Int { prefabUsed.maxHp }
+    var imageName: String { prefabUsed.imageName }
 
     func TakeDamage(amount:Int) -> Bool{
         curHp = max(curHp - amount, 0)
