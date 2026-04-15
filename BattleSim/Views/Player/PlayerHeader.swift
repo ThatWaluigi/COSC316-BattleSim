@@ -14,6 +14,8 @@ struct PlayerHeader: View {
     var body: some View {
         if let player = players.first {
             HStack{
+                Text(player.difficulty)
+
                 Group{
                     Text("Health: ").bold(true)
                     Spacer()
