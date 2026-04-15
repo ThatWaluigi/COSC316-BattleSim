@@ -63,7 +63,8 @@ struct BattleView: View {
                 case .main:
                     ActionView(
                         onAttack: { controller.ChangeState(state: .attack) },
-                        onRun: Return
+                        onRun: Return,
+                        onDefend: {controller.PlayerDefend()}
                     )
                 case .attack:
                     WeaponView(

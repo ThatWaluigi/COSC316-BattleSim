@@ -51,10 +51,11 @@ struct WinView: View{
                                 }
 
                             case .replace:
-                                Text("Hmm? maybe this is better than what I have.")
+                                Text("Maybe this is better than what I have?")
+                                Text("Replace?")
                                 HStack {
                                     ForEach(Array(controller.GetPlayerWeapons().enumerated()), id: \.offset) { index, wpn in
-                                        Button("Replace \(wpn.name) <\(wpn.baseDamage)>") {
+                                        Button("\(wpn.name) <\(wpn.baseDamage)>") {
                                             controller.replaceWeapon(with: weapon, at: index)
                                             state = .pickup
                                         }
@@ -68,18 +69,20 @@ struct WinView: View{
                     }
                 }
             }
-
-            Spacer()
-
-            Button("Return Home") {
-                controller.collectGold()
-                Return()
+            
+            if state != .replace {
+                Spacer()
+                
+                Button("Return Home") {
+                    controller.collectGold()
+                    Return()
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(
+                    UIHelper.GetBackground(type: .ButtonUI)
+                )
             }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(
-                UIHelper.GetBackground(type: .ButtonUI)
-            )
         }
     }
 }
