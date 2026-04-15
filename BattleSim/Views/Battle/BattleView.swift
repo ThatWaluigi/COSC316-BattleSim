@@ -66,7 +66,7 @@ struct BattleView: View {
                             withAnimation(.easeInOut(duration: 0.2)){ controller.ChangeState(state: .attack) }
                         },
                         onRun: {
-                            withAnimation(.easeInOut(duration: 0.2)){Return}
+                            withAnimation(.easeInOut(duration: 0.2)){ Return() }
                         },
                         onDefend: {
                             controller.PlayerDefend()
