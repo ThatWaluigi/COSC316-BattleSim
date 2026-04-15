@@ -30,7 +30,7 @@ struct MarketView: View {
                     HStack{
                         Text("Full Heal (100%)")
                         Spacer()
-                        Button("Heal?\n\(player.fullHealCost) Gold"){
+                        Button("Heal? \n \(player.fullHealCost) Gold"){
                             withAnimation(.easeInOut) {
                                 player.FullHeal()
                             }
@@ -48,7 +48,7 @@ struct MarketView: View {
                     HStack{
                         Text("Max Health (+5)")
                         Spacer()
-                        Button("Upgrade?\n\(player.healthUpgradeCost) Gold"){
+                        Button("Upgrade? \n \(player.healthUpgradeCost) Gold"){
                             withAnimation(.easeInOut) {
                                 player.UpgradeHealth()
                             }
@@ -66,7 +66,7 @@ struct MarketView: View {
                     HStack{
                         Text("Increase Gold (+10%)")
                         Spacer()
-                        Button("Upgrade?\n\(player.goldUpgradeCost) Gold"){
+                        Button("Upgrade? \n \(player.goldUpgradeCost) Gold"){
                             withAnimation(.easeInOut) {
                                 player.UpgradeGold()
                             }
