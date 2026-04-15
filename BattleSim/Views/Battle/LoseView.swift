@@ -3,7 +3,6 @@ import SwiftUI
 struct LoseView: View{
 
     var Return: () -> Void
-    var HealPlayer: () -> Void
     var controller: BattleController
     
     var body: some View {
@@ -14,7 +13,8 @@ struct LoseView: View{
 
             HStack {
                 Button("Return Home") {
-                    HealPlayer()
+                    controller.HealDefeatedPlayer()
+                    controller.DecreaseDifficulty()
                     Return()
                 }
                 .padding()

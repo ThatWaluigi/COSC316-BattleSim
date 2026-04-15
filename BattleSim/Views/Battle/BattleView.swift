@@ -89,7 +89,6 @@ struct BattleView: View {
                     )
                 case .defeat:
                     LoseView(Return: {Return()},
-                             HealPlayer: { controller.HealDefeatedPlayer()},
                              controller: controller
                     )
                 }

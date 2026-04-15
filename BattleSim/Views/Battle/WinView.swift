@@ -79,6 +79,7 @@ struct WinView: View{
                 
                 Button("Return Home") {
                     controller.collectGold()
+                    controller.IncreaseDifficulty()
                     Return()
                 }
                 .padding()
