@@ -41,7 +41,7 @@ class BattleController: ObservableObject {
         guard let enemy = enemy else { return }
 
         if (weapon.durability - 1) == 0 {
-            player.removeWeapon(weapon)
+            player!.removeWeapon(weapon: weapon)
         }
 
         if enemy.TakeDamage(amount: weapon.baseDamage){
@@ -90,7 +90,7 @@ class BattleController: ObservableObject {
         PlayerWeapon(
             name: enemy.weapon.name,
             damage: enemy.weapon.baseDamage,
-            durability: Int.random(3..<10),
+            durability: Int.random(in: 3..<10),
             rarity: enemy.weapon.rarity
         )
         : nil

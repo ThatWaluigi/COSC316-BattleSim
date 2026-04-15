@@ -85,7 +85,7 @@ class Player {
     }
 
     func removeWeapon(weapon: PlayerWeapon){
-        inventory.remove(weapon)
+        inventory.removeAll {$0 == weapon}
     }
 
     func inventoryFull() -> Bool{
