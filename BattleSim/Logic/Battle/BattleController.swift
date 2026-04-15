@@ -109,11 +109,11 @@ class BattleController: ObservableObject {
     }
     
     func IncreaseDifficulty(){
-        player!.difficulty += Float(Double.random(in: 0.02..<0.15))
+        player!.difficulty += Float(Double.random(in: 0.05..<0.17))
     }
     
     func DecreaseDifficulty(){
-        let diff = player!.difficulty - Float(Double.random(in: 0.01..<0.12))
+        let diff = player!.difficulty - Float(Double.random(in: 0.02..<0.11))
         player!.difficulty = max(0.5, diff)
     }
     
