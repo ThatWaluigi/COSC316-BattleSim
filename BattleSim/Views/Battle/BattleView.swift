@@ -62,9 +62,15 @@ struct BattleView: View {
                 switch controller.state {
                 case .main:
                     ActionView(
-                        onAttack: { controller.ChangeState(state: .attack) },
-                        onRun: Return,
-                        onDefend: {controller.PlayerDefend()}
+                        onAttack: { 
+                            withAnimation(.easeInOut(duration: 0.2)){ controller.ChangeState(state: .attack) }
+                        },
+                        onRun: {
+                            withAnimation(.easeInOut(duration: 0.2)){Return}
+                        },
+                        onDefend: {
+                            controller.PlayerDefend()
+                        }
                     )
                 case .attack:
                     WeaponView(
@@ -88,6 +94,8 @@ struct BattleView: View {
                     )
                 }
             }
+            .transition(.opacity)
+            .animation(.easeInOut, value: controller.state)
             .frame(height: 180)
             .padding()
             .background(

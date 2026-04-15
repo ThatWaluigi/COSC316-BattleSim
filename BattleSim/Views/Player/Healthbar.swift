@@ -26,6 +26,7 @@ struct Healthbar: View {
                 Rectangle()
                     .foregroundStyle(Color.red)
                     .frame(height: 15)
+                    .animation(.easeInOut(duration: 0.25), value: hpRatio)
 
                 // Lost HP overlay on the right (trailing)
                 HStack {
@@ -33,6 +34,7 @@ struct Healthbar: View {
                     Rectangle()
                         .foregroundStyle(Color.gray.opacity(0.7))
                         .frame(width: lostWidth, height: 15)
+                        .animation(.easeInOut(duration: 0.25), value: hpRatio)
                 }
 
                 // Centered health text

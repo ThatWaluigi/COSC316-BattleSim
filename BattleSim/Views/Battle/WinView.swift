@@ -31,11 +31,15 @@ struct WinView: View{
                                     Text("\(weapon.name) : (\(weapon.baseDamage))")
                                     Button("Collect?"){
                                         if controller.CheckPlayerInventory(){
-                                            state = .replace
+                                            withAnimation(.spring()) {
+                                                state = .replace
+                                            }
                                         }
                                         else
                                         {
-                                            state = .pickup
+                                            withAnimation(.spring()) {
+                                                state = .pickup
+                                            }
                                         }
                                     }
                                     .padding(4)

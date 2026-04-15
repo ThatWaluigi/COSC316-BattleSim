@@ -24,5 +24,7 @@ struct EnemyView: View {
                 UIHelper.GetEnemyArt(image: "Temp")
             }.padding(20)
         }
+        .transition(.scale.combined(with: .opacity))
+        .animation(.easeInOut, value: enemy.curHp)
     }
 }
