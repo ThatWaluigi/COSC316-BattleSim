@@ -1,17 +1,22 @@
 import SwiftUI
+import SwiftData
 
 struct MarketView: View {
 
     var Return: () -> Void
-    var player: Player
-    var context: ModelContext
+    
+    @Query var players: [Player]
+    private var player: Player { players.first! }
 
     var body: some View {
         VStack(spacing: 0) {
 
             // TOP BAR
-            Color.clear
-            .frame(height: 40)
+            VStack{
+                Spacer()
+                PlayerHeader()
+            }
+            .frame(height: 70)
             .padding()
             .background(
                 UIHelper.GetBackground(type: .MenuUI)
@@ -19,36 +24,61 @@ struct MarketView: View {
 
             // CENTER AREA
             HStack(spacing: 4) {
-                VStack {
+                VStack(spacing:48) {
                     Spacer()
 
-                    Group{
+                    HStack{
                         Text("Full Heal (100%)")
                         Spacer()
-                        Button("Heal? : \(player.fullHealCost) Gold"){
+                        Button("Heal?\n\(player.fullHealCost) Gold"){
                             player.FullHeal()
                         }
+                        .padding(8)
+                        .background(
+                            UIHelper.GetBackground(type: .ButtonUI)
+                        )
                     }
-
-                    Group{
+                    .padding()
+                    .background(
+                        UIHelper.GetBackground(type: .DividerUI)
+                    )
+                    
+                    HStack{
                         Text("Max Health (+5)")
                         Spacer()
-                        Button("Upgrade? : \(player.healthUpgradeCost) Gold"){
+                        Button("Upgrade?\n\(player.healthUpgradeCost) Gold"){
                             player.UpgradeHealth()
                         }
+                        .padding(8)
+                        .background(
+                            UIHelper.GetBackground(type: .ButtonUI)
+                        )
                     }
+                    .padding()
+                    .background(
+                        UIHelper.GetBackground(type: .DividerUI)
+                    )
 
-                    Group{
+                    HStack{
                         Text("Increase Gold (+10%)")
                         Spacer()
-                        Button("Upgrade?: \(player.goldUpgradeCost) Gold"){
+                        Button("Upgrade?\n\(player.goldUpgradeCost) Gold"){
                             player.UpgradeGold()
                         }
+                        .padding(8)
+                        .background(
+                            UIHelper.GetBackground(type: .ButtonUI)
+                        )
                     }
+                    .padding()
+                    .background(
+                        UIHelper.GetBackground(type: .DividerUI)
+                    )
 
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
+                .padding(16)
                 .background(Color.gray)
             }
 

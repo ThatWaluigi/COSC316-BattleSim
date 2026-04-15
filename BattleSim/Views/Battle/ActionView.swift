@@ -4,6 +4,7 @@ struct ActionView: View{
 
     var onAttack: () -> Void
     var onRun: () -> Void
+    var onDefend: () -> Void
     
     var body: some View {
         VStack {
@@ -20,7 +21,7 @@ struct ActionView: View{
 
             HStack {
                 Button("Defend") { 
-
+                    onDefend()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)

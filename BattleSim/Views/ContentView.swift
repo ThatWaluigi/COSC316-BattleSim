@@ -41,7 +41,7 @@ struct ContentView: View {
             if players.first == nil {
 
                 let player = Player()
-                let firstWeapon = Prefabs.allWeapons[0]
+                let firstWeapon = Prefabs.allWeapons[1]
 
                 player.inventory.append(
                     PlayerWeapon(name: firstWeapon.name, damage: firstWeapon.baseDamage, rarity: firstWeapon.rarity)

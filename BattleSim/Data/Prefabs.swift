@@ -29,6 +29,8 @@ final class PrefabWeapon{
 struct Prefabs {
     // Enemies
     static let allEnemies: [PrefabEnemy] = [
+        PrefabEnemy(name: "Old Dummy", maxHp: 4, imageName: "dummy"),
+        
         PrefabEnemy(name: "Slime", maxHp: 20, imageName: "slime"),
         PrefabEnemy(name: "Rat", maxHp: 18, imageName: "rat"),
         PrefabEnemy(name: "Bat", maxHp: 16, imageName: "bat"),
@@ -50,6 +52,7 @@ struct Prefabs {
 
     // 
     static let allWeapons: [PrefabWeapon] = [
+        PrefabWeapon(name: "Rubber Chicken", damage: 1, rarity: .common),
         PrefabWeapon(name: "Small Stick", damage: 3, rarity: .common),
         PrefabWeapon(name: "Rusty Dagger", damage: 5, rarity: .common),
         PrefabWeapon(name: "Wooden Club", damage: 6, rarity: .common),

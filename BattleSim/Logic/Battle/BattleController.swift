@@ -53,6 +53,11 @@ class BattleController: ObservableObject {
             EnemyTurn()
         }
     }
+    
+    func PlayerDefend(){
+        player!.Heal(amount: Int(player!.maxHP / 7))
+        EnemyTurn()
+    }
 
     func EnemyTurn(){
         guard let enemy = enemy, let player = player else { return }
@@ -72,12 +77,12 @@ class BattleController: ObservableObject {
         }
 
         let baseGold = Int(enemy.maxHp / 6) + Int.random(in: 2...7)
-        let gainedGold = Int(Float(baseGold) * player.goldMulti)
+        let gainedGold = Int(Float(baseGold) * player!.goldMulti)
 
         // small chance to drop weapon
         let dropChance = Double.random(in: 0..<1)
 
-        let weaponDrop: PlayerWeapon? = (dropChance < 0.75) ? 
+        let weaponDrop: PlayerWeapon? = (dropChance < 0.15) ? 
         PlayerWeapon(
             name: enemy.weapon.name,
             damage: enemy.weapon.baseDamage,
@@ -85,7 +90,7 @@ class BattleController: ObservableObject {
         )
         : nil
 
-        return LootReward(gold: baseGold, weapon: weaponDrop)
+        return LootReward(gold: gainedGold, weapon: weaponDrop)
     }
 
     func collectLootWeapon() {

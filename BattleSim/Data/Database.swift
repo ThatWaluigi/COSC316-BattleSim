@@ -34,6 +34,7 @@ class Player {
         self.baseMaxHP = maxHP
         self.gold = gold
         self.goldMulti = 1.0
+        self.healthUp = 0
         self.difficulty = difficulty
         self.inventory = inv
     }
