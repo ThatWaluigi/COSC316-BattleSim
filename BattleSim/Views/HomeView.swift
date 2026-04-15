@@ -43,6 +43,7 @@ struct HomeView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
+                    .foregroundStyle(.black)
                     .background(
                         UIHelper.GetBackground(type: .ButtonUI)
                     )
@@ -53,6 +54,7 @@ struct HomeView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
+                        .foregroundStyle(.black)
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
@@ -64,6 +66,7 @@ struct HomeView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
+                        .foregroundStyle(.black)
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )

@@ -132,4 +132,12 @@ class PlayerWeapon {
     var rarity: WeaponRarity{
         WeaponRarity(rawValue: rarityStr)!
     }
+    
+    var durabilityStr: String {
+        if durability == -1 {
+            return "inf"
+        }
+        
+        return "\(durability)"
+    }
 }

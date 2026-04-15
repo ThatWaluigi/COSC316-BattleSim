@@ -44,6 +44,7 @@ struct WinView: View{
                                     }
                                     .padding(4)
                                     .frame(maxWidth: .infinity)
+                                    .foregroundStyle(.black)
                                     .background(
                                         UIHelper.GetBackground(type: .ButtonUI)
                                     )
@@ -65,6 +66,7 @@ struct WinView: View{
                                         }
                                         .padding()
                                         .frame(maxWidth: .infinity)
+                                        .foregroundStyle(.black)
                                         .background(UIHelper.GetBackground(type: .ButtonUI))
 
                                 }
@@ -84,6 +86,7 @@ struct WinView: View{
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
+                .foregroundStyle(.black)
                 .background(
                     UIHelper.GetBackground(type: .ButtonUI)
                 )

@@ -39,6 +39,7 @@ struct MarketView: View {
                             }
                         }
                         .padding()
+                        .foregroundStyle(.black)
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
@@ -60,6 +61,7 @@ struct MarketView: View {
                             }
                         }
                         .padding()
+                        .foregroundStyle(.black)
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
@@ -81,6 +83,7 @@ struct MarketView: View {
                             }
                         }
                         .padding()
+                        .foregroundStyle(.black)
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
@@ -104,6 +107,7 @@ struct MarketView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
+                .foregroundStyle(.black)
                 .background(
                     UIHelper.GetBackground(type: .ButtonUI)
                 )

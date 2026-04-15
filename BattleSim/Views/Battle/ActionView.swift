@@ -14,6 +14,7 @@ struct ActionView: View{
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
+                .foregroundStyle(.black)
                 .background(
                     UIHelper.GetBackground(type: .ButtonUI)
                 )
@@ -25,6 +26,7 @@ struct ActionView: View{
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
+                .foregroundStyle(.black)
                 .background(
                     UIHelper.GetBackground(type: .ButtonUI)
                 )
@@ -34,6 +36,7 @@ struct ActionView: View{
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
+                .foregroundStyle(.black)
                 .background(
                     UIHelper.GetBackground(type: .ButtonUI)
                 )

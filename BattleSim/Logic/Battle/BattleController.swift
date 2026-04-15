@@ -42,7 +42,12 @@ class BattleController: ObservableObject {
 
         if (weapon.durability - 1) == 0 {
             player!.removeWeapon(weapon: weapon)
+        }else{
+            if (weapon.durability > 1){
+                weapon.durability -= 1
+            }
         }
+
 
         if enemy.TakeDamage(amount: weapon.baseDamage){
             JournalLogger.recordDeath(

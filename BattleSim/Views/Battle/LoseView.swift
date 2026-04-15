@@ -19,6 +19,7 @@ struct LoseView: View{
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
+                .foregroundStyle(.black)
                 .background(
                     UIHelper.GetBackground(type: .ButtonUI)
                 )

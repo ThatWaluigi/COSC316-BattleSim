@@ -17,17 +17,17 @@ struct WeaponView: View{
                         playerAttack(slot)
                     })
                     {
-                        VStack {
+                        VStack(spacing:4) {
                             Text("\(slot.name)")
-                            HStack{
-                                Text("\(slot.baseDamage) dmg")
-                                Text("|")
-                                Text("\(slot.durability) uses")
-                            }
-                            .padding(4)
+                                .font(.headline)
+                                .foregroundStyle(.black).bold()
+                            Text("\(slot.baseDamage) Dmg")
+                                .foregroundStyle(.black)
+                            Text("\(slot.durabilityStr) Uses")
+                                .foregroundStyle(.black)
                         }
                     }
-                    .padding()
+                    .padding(12)
                     .background(
                         UIHelper.GetBackground(type: .ButtonUI)
                     )
@@ -41,6 +41,7 @@ struct WeaponView: View{
             }
             .padding()
             .frame(maxWidth: .infinity)
+            .foregroundStyle(.black)
             .background(
                 UIHelper.GetBackground(type: .ButtonUI)
             )
