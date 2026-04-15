@@ -91,7 +91,7 @@ class Player {
         guard gold >= fullHealCost else { return }
 
         gold -= fullHealCost
-        healthUp += 1
+        self.hp = maxHP
     }
 
     func UpgradeHealth() {
@@ -99,6 +99,7 @@ class Player {
 
         gold -= healthUpgradeCost
         healthUp += 1
+        Heal(amount:5)
     }
 
     func UpgradeGold() {
