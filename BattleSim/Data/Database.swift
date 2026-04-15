@@ -84,6 +84,10 @@ class Player {
         }
     }
 
+    func removeWeapon(weapon: PlayerWeapon){
+        inventory.remove(weapon)
+    }
+
     func inventoryFull() -> Bool{
         return inventory.count >= 3
     }
@@ -116,10 +120,12 @@ class PlayerWeapon {
     var name: String
     var baseDamage: Int
     var rarityStr: String
+    var durability: Int
 
-    init(name: String, damage: Int, rarity:WeaponRarity){
+    init(name: String, damage: Int, durability:Int, rarity:WeaponRarity){
         self.name = name
         self.baseDamage = damage
+        self.durability = durability
         self.rarityStr = rarity.rawValue
     }
 

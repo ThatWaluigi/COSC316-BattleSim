@@ -44,7 +44,7 @@ struct ContentView: View {
                 let firstWeapon = Prefabs.allWeapons[1]
 
                 player.inventory.append(
-                    PlayerWeapon(name: firstWeapon.name, damage: firstWeapon.baseDamage, rarity: firstWeapon.rarity)
+                    PlayerWeapon(name: firstWeapon.name, damage: firstWeapon.baseDamage, durability: -1, rarity: firstWeapon.rarity)
                 )
 
                 context.insert(player)

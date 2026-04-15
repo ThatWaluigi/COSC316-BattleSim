@@ -13,8 +13,17 @@ struct WeaponView: View{
             
             HStack {
                 ForEach(weapons, id: \.name){ slot in
-                    Button("\(slot.name) (\(slot.baseDamage))"){
+                    Button(action: {
                         playerAttack(slot)
+                    })
+                    {
+                        VStack {
+                            Text("\(slot.name)")
+                            HStack{
+                                Text("\(slot.baseDamage) dmg")
+                                Text("\(slot.durability) uses")
+                            }
+                        }
                     }
                     .padding()
                     .background(

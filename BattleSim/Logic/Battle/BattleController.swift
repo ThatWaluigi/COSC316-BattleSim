@@ -40,6 +40,10 @@ class BattleController: ObservableObject {
     func PlayerAttack(weapon: PlayerWeapon, context:ModelContext){
         guard let enemy = enemy else { return }
 
+        if (weapon.durability - 1) == 0 {
+            player.removeWeapon(weapon)
+        }
+
         if enemy.TakeDamage(amount: weapon.baseDamage){
             JournalLogger.recordDeath(
                 enemy: enemy.prefabUsed,
@@ -86,6 +90,7 @@ class BattleController: ObservableObject {
         PlayerWeapon(
             name: enemy.weapon.name,
             damage: enemy.weapon.baseDamage,
+            durability: Int.random(3..<10),
             rarity: enemy.weapon.rarity
         )
         : nil
