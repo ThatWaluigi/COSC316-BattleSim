@@ -35,7 +35,7 @@ struct MarketView: View {
                                 player.FullHeal()
                             }
                         }
-                        .padding(8)
+                        .padding()
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
@@ -53,7 +53,7 @@ struct MarketView: View {
                                 player.UpgradeHealth()
                             }
                         }
-                        .padding(8)
+                        .padding()
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
@@ -71,7 +71,7 @@ struct MarketView: View {
                                 player.UpgradeGold()
                             }
                         }
-                        .padding(8)
+                        .padding()
                         .background(
                             UIHelper.GetBackground(type: .ButtonUI)
                         )
