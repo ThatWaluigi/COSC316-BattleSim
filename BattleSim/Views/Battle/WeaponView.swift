@@ -21,8 +21,10 @@ struct WeaponView: View{
                             Text("\(slot.name)")
                             HStack{
                                 Text("\(slot.baseDamage) dmg")
+                                Text("|")
                                 Text("\(slot.durability) uses")
                             }
+                            .padding(4)
                         }
                     }
                     .padding()
